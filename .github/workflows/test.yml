@@ -6,7 +6,7 @@ on:
 jobs:
   parent:
 
-    runs-on: ${matrix.os}
+    runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
