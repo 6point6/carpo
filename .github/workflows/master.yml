@@ -55,6 +55,8 @@ jobs:
 
       - name: Copy GPG Private key
         run: echo "${{ secrets.gpg_private_key }}" > private-key.txt && gpg --import --no-tty --batch --yes private-key.txt
+      - name: Build
+        run: mvn -B clean install --file pom.xml
       - name: Deploy to Maven Central respository
         env:
           MAVEN_NEXUS_USER: ${{ secrets.nexus_username }}
