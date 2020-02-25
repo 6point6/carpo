@@ -16,6 +16,12 @@
         <module>carpo-case-data</module>
     </modules>
 
+    <profiles>
+        <profile>
+            <id>deploy</id>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
             <plugin>
