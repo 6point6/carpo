@@ -35,6 +35,8 @@ jobs:
     needs: [test]
 
     strategy:
+      max-parallel: 1
+      fail-fast: false
       matrix:
         module:
           - carpo-parent
