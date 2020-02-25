@@ -1,0 +1,26 @@
+site_name: Carpo Docs
+theme:
+  name: 'material'
+  language: en
+  font:
+    text: Roboto
+    code: Roboto Mono
+repo_name: '6point6/carpo'
+repo_url: 'https://github.com/6point6/carpo'
+
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - meta
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Concepts:
+      - Properties: concepts/properties.md
+  - Modules:
+      - Common: modules/common.md
+      - Case: modules/case_data.md
+  - Contributing: contributing.md
