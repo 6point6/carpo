@@ -1,0 +1,13 @@
+docs:
+  - docs/*
+
+core:
+  - carpo-common/**/*
+  - carpo-parent/**/*
+  - ./*
+
+case-data:
+  - carpo-case-data/**/*
+
+pipeline:
+  - .github/**/*
