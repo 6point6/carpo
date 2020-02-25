@@ -1,11 +1,13 @@
-# Carpo Case Management Framework
+# Carpo Case Management
 
-## What is Carpo?
+Welcome to the Carpo Case Management documentation. Carpo is a free and open source set of case management libraries. 
 
-Case management is common requirement that teams have to build again and again. Carpo is here to provide some easy to use tools to speed up the development of the Case Management applications.
+!!!info "Note"
 
-At the moment this is a work in progress. If you want to help please read the [Contributing Docs](CONTRIBUTING.md)
-
+	Carpo is an open source project this is released under the MIT Licence. We are always looking for help to improve the code, suggest new features or improve the docs. 
+	
+	Submit an issue or pull request on our [Github Repository](https://github.com/6point6/carpo) to help out.
+	
 ## Module Structure
 
 Since case management is such a large area the code is split into modules that allow flexibility on their use. While that can add complexity we do no intend to support every use case for every module from the start. If there is a use case for a module that is not available it should be simple matter to provide one.
@@ -38,32 +40,3 @@ Carpo uses Java 11 and is built with Maven
 ```shell script
 ./mvnw clean install
 ```
-
-### Testing
-
-Carpo splits its test runs into unit and functional tests. 
-
-For unit tests only
-
-```shell script
-./mvnw clean test
-```
-
-For all tests
-
-```shell script
-./mvnw clean test -Pit
-```
-
-## Docs
-
-The docs are stored in the [docs](docs) directory and can be built with [mkdocs](https://docs.readthedocs.io/en/stable/intro/getting-started-with-mkdocs.html). The will be deployed to read the docs as part of the pipeline.
-
-To install the tools run
-
-```shell script
-pip install mkdocs
-pip install mkdocs-material
-```
-
-To serve the docs locally run `mkdocs serve` from the root directory.
