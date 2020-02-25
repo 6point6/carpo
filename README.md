@@ -66,4 +66,4 @@ pip install mkdocs
 pip install mkdocs-material
 ```
 
-To serve the docs locally run `mkdocs serve` from the docs directory.
+To serve the docs locally run `mkdocs serve` from the root directory.
