@@ -122,8 +122,8 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <url>https://repo.sixpointsix.net/repository/snapshots/</url>
+            <id>ossrh-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
             <id>ossrh</id>
@@ -134,7 +134,7 @@
 
     <profiles>
         <profile>
-            <id>release-sign-artifacts</id>
+            <id>deploy</id>
             <activation>
                 <property>
                     <name>performRelease</name>
