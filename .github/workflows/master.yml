@@ -34,6 +34,12 @@ jobs:
 
     needs: [test]
 
+    strategy:
+      module:
+        - carpo-parent
+        - carpo-common
+        - carpo-case-data
+
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK ${{ matrix.java }} on ${{ matrix.os }}
@@ -50,5 +56,7 @@ jobs:
         env:
           MAVEN_NEXUS_USER: ${{ secrets.nexus_username }}
           MAVEN_NEXUS_PASSWORD: ${{ secrets.nexus_password }}
-        run: mvn deploy -Dgpg.passphrase=${{ secrets.gpg_passphrase }} -DskipTests -P deploy
+        run: |
+          cd ${{ matrix.module }}
+          mvn deploy -Dgpg.passphrase=${{ secrets.gpg_passphrase }} -DskipTests -P deploy
 
