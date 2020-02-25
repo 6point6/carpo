@@ -35,10 +35,11 @@ jobs:
     needs: [test]
 
     strategy:
-      module:
-        - carpo-parent
-        - carpo-common
-        - carpo-case-data
+      matrix:
+        module:
+          - carpo-parent
+          - carpo-common
+          - carpo-case-data
 
     steps:
       - uses: actions/checkout@v2
