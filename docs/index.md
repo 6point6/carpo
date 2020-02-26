@@ -2,7 +2,7 @@
 
 Welcome to the Carpo Case Management documentation. Carpo is a free and open source set of case management libraries. 
 
-!!!info "Note"
+!!!note "Note"
 
 	Carpo is an open source project this is released under the MIT Licence. We are always looking for help to improve the code, suggest new features or improve the docs. 
 	

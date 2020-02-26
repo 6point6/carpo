@@ -4,7 +4,7 @@ Defining a flexible data structure for cases is difficult to manage and Java doe
 
 The approach to properties is similar to a [Union type](https://en.wikipedia.org/wiki/Union_type) that some languages offer.
 
-!!!info "The Golden Rule"
+!!!note "The Golden Rule"
     
     A property has a key and a value. The key is a string but the value could be a string, a number, a boolean, an object or a list. 
     
@@ -16,6 +16,7 @@ The approach to serialisation, persistence and storage will depend on the destin
 ## The Property Interface
 
 ```java
+
 public interface Property {
 
     String getKey();
@@ -46,6 +47,7 @@ public interface Property {
 
     Boolean hasListValue();
 }
+
 ```
 
 The property interface has `get` and `has` methods for the different data types. Only one data type can be held at a time and all the gets use `Optional` in order to avoid `null`.
