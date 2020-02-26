@@ -18,8 +18,6 @@
 
         <javadoc-plugin.version>3.1.1</javadoc-plugin.version>
 
-        <carpo.version>0.0.1-SNAPSHOT</carpo.version>
-
         <!-- Dependency version       -->
         <slf4j.version>1.7.30</slf4j.version>
 
@@ -32,7 +30,7 @@
             <dependency>
                 <groupId>net.sixpointsix</groupId>
                 <artifactId>carpo-common</artifactId>
-                <version>${carpo.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
 
