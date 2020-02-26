@@ -75,6 +75,7 @@
                 <os>
                     <name>Linux</name>
                 </os>
+                <jdk>11</jdk>
             </activation>
             <build>
                 <plugins>
