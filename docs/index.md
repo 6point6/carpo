@@ -37,6 +37,6 @@ The API standards will be defined later and will be enforced for all core API's.
 
 Carpo uses Java 11 and is built with Maven
 
-```shell script
-./mvnw clean install
+```sh
+$ ./mvnw clean install
 ```
