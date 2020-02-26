@@ -1,0 +1,69 @@
+name: Master build
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+        java:
+          - 11
+          - 12
+          - 13
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK ${{ matrix.java }} on ${{ matrix.os }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Test with Maven
+        run: mvn -B clean test --file pom.xml
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    needs: [test]
+
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        module:
+          - carpo-parent
+          - carpo-common
+          - carpo-case-data
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK ${{ matrix.java }} on ${{ matrix.os }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+          server-id: ossrh                        # Value of the distributionManagement/repository/id field of the pom.xml
+          server-username: MAVEN_NEXUS_USER       # env variable for username in deploy
+          server-password: MAVEN_NEXUS_PASSWORD   # env variable for token in deploy
+
+      - name: Copy GPG Private key
+        run: echo "${{ secrets.gpg_private_key }}" > private-key.txt && gpg --import --no-tty --batch --yes private-key.txt
+      - name: Build
+        run: mvn -B clean install --file pom.xml
+      - name: Deploy to Maven Central respository
+        env:
+          MAVEN_NEXUS_USER: ${{ secrets.nexus_username }}
+          MAVEN_NEXUS_PASSWORD: ${{ secrets.nexus_password }}
+        run: |
+          cd ${{ matrix.module }}
+          mvn deploy -Dgpg.passphrase=${{ secrets.gpg_passphrase }} -DskipTests -P deploy
+

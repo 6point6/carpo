@@ -1,5 +1,8 @@
 # Carpo Case Management Framework
 
+![Master build](https://github.com/6point6/carpo/workflows/Master%20build/badge.svg?branch=master)
+
+
 ## What is Carpo?
 
 Case management is common requirement that teams have to build again and again. Carpo is here to provide some easy to use tools to speed up the development of the Case Management applications.

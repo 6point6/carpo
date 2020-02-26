@@ -1,2 +1,11 @@
 mkdocs:
   configuration: mkdocs.yml
+
+
+python:
+  version: 3.7
+  install:
+    - requirements: .mkdocs_requirements.txt
+    - method: pip
+      path: .
+  system_packages: true
