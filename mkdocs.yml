@@ -1,17 +1,17 @@
 site_name: Carpo Docs
 theme:
-  name: 'material'
+  name: 'mkdocs'
   language: en
-  font:
-    text: Roboto
-    code: Roboto Mono
+  highlightjs: true
+  nav_style: dark
+  hljs_languages:
+    - java
+    -
 repo_name: '6point6/carpo'
 repo_url: 'https://github.com/6point6/carpo'
 
 markdown_extensions:
   - admonition
-  - codehilite:
-      guess_lang: false
   - meta
   - toc:
       permalink: true

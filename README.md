@@ -1,7 +1,7 @@
 # Carpo Case Management Framework
 
 ![Master build](https://github.com/6point6/carpo/workflows/Master%20build/badge.svg?branch=master)
-
+[![Documentation Status](https://readthedocs.org/projects/carpo/badge/?version=latest)](https://carpo.readthedocs.io/en/latest/?badge=latest)
 
 ## What is Carpo?
 
@@ -66,7 +66,6 @@ To install the tools run
 
 ```shell script
 pip install mkdocs
-pip install mkdocs-material
 ```
 
 To serve the docs locally run `mkdocs serve` from the root directory.
