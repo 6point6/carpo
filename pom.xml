@@ -14,7 +14,13 @@
         <module>carpo-parent</module>
         <module>carpo-common</module>
         <module>carpo-case-data</module>
+<!--        <module>carpo-mi</module>-->
     </modules>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    
+    </properties>
+
 
     <profiles>
         <profile>
