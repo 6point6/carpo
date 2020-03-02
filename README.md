@@ -2,6 +2,9 @@
 
 ![Master build](https://github.com/6point6/carpo/workflows/Master%20build/badge.svg?branch=master)
 [![Documentation Status](https://readthedocs.org/projects/carpo/badge/?version=latest)](https://carpo.readthedocs.io/en/latest/?badge=latest)
+[![codebeat badge](https://codebeat.co/badges/9bde4082-a2e1-4319-bb1b-c9a4128dc995)](https://codebeat.co/projects/github-com-6point6-carpo-master)
+[![codecov](https://codecov.io/gh/6point6/carpo/branch/master/graph/badge.svg)](https://codecov.io/gh/6point6/carpo)
+
 
 ## What is Carpo?
 

@@ -32,8 +32,13 @@ jobs:
 
       - name: Copy GPG Private key
         run: echo "${{ secrets.gpg_private_key }}" > private-key.txt && gpg --import --no-tty --batch --yes private-key.txt
+      - name: 'Get Previous tag'
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@master"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       - name: Set version
-        run: mvn versions:set -DnewVersion=${GITHUB_REF} -f carpo-parent/pom.xml
+        run: mvn versions:set -DnewVersion=${{ steps.previoustag.outputs.tag }} -f carpo-parent/pom.xml
       - name: Build
         run: mvn -B clean install --file pom.xml
       - name: Deploy to Maven Central respository
