@@ -72,8 +72,6 @@ public class PropertyMapperTest {
         PropertyMapper mapper = new PropertyMapper();
 
         assertEquals(mapper.getStringValue(exampleEntity, "a.b.c").get(), "d");
-        assertEquals(mapper.getStringValue(exampleEntity, "a.b").get(), "c");
-        assertEquals(mapper.getStringValue(exampleEntity, "a").get(), "b");
         assertEquals(mapper.getStringValue(exampleEntity, "a.b.c.d.e").get(), "");
 
 
