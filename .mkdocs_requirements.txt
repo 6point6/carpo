@@ -1,2 +1,0 @@
-Carpo
-mkdocs-material>=4

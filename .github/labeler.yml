@@ -11,3 +11,6 @@ case-data:
 
 pipeline:
   - .github/**/*
+
+serialization:
+  - carpo-serialization/**/*
