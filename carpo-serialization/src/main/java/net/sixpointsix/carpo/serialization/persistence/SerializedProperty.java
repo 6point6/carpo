@@ -2,6 +2,12 @@ package net.sixpointsix.carpo.serialization.persistence;
 
 import net.sixpointsix.carpo.common.model.PropertyType;
 
+/**
+ * Property data with meta data for storage
+ *
+ * @author Andrew Tarry
+ * @since 0.0.1
+ */
 public interface SerializedProperty {
 
     /**

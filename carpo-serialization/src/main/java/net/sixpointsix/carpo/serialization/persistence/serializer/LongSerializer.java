@@ -7,7 +7,14 @@ import net.sixpointsix.carpo.serialization.persistence.ImmutableSerializedProper
 import net.sixpointsix.carpo.serialization.persistence.PersistenceSerializer;
 import net.sixpointsix.carpo.serialization.persistence.SerializedProperty;
 
+/**
+ * Serialize long data
+ *
+ * @author Andrew Tarry
+ * @since 0.0.1
+ */
 public class LongSerializer implements PersistenceSerializer {
+
     /**
      * Test that the property can be serialized
      *

@@ -1,6 +1,5 @@
 package net.sixpointsix.carpo.serialization.persistence.serializer;
 
-import com.google.common.collect.Lists;
 import net.sixpointsix.carpo.common.model.Property;
 import net.sixpointsix.carpo.common.model.PropertyType;
 import net.sixpointsix.carpo.serialization.persistence.ImmutableSerializedProperty;

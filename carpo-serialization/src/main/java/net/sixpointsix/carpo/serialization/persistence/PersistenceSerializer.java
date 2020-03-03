@@ -2,6 +2,12 @@ package net.sixpointsix.carpo.serialization.persistence;
 
 import net.sixpointsix.carpo.common.model.Property;
 
+/**
+ * Serialize data for persistence
+ *
+ * @author Andrew Tarry
+ * @since 0.0.1
+ */
 public interface PersistenceSerializer {
 
     int DEFAULT_PRIORITY = 1000;

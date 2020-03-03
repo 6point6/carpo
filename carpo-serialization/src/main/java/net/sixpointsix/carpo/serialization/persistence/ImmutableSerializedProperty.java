@@ -4,6 +4,9 @@ import net.sixpointsix.carpo.common.model.PropertyType;
 
 /**
  * Immutable record of a property
+ *
+ * @author Andrew Tarry
+ * @since 0.0.1
  */
 public class ImmutableSerializedProperty implements SerializedProperty {
 

@@ -4,7 +4,9 @@ import net.sixpointsix.carpo.common.model.Property;
 import net.sixpointsix.carpo.serialization.exception.NoSerializerException;
 import net.sixpointsix.carpo.serialization.persistence.serializer.*;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Serialization manager to be applied to the properties
@@ -34,7 +36,10 @@ public class PlugableSerializationManager implements PersistenceSerializationMan
      * @param persistenceSerializers serializers to be used
      */
     public PlugableSerializationManager(List<PersistenceSerializer> persistenceSerializers) {
-        this.persistenceSerializers = persistenceSerializers;
+        this.persistenceSerializers = persistenceSerializers
+                .stream()
+                .sorted(Comparator.comparing(PersistenceSerializer::getPriority))
+                .collect(Collectors.toList());
     }
 
     @Override
