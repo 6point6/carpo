@@ -1,6 +1,7 @@
 package net.sixpointsix.carpo.common.model.immutable;
 
 import net.sixpointsix.carpo.common.model.Property;
+import net.sixpointsix.carpo.common.model.PropertyType;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -242,5 +243,55 @@ class ImmutablePropertyTest {
         assertFalse(property.getDoubleValue().isPresent());
         assertFalse(property.getLongValue().isPresent());
         assertFalse(property.getBooleanValue().isPresent());
+    }
+
+    @Test
+    void getStringType() {
+        Property property = ImmutableProperty.build("a", "B");
+
+        assertEquals(PropertyType.STRING, property.getType());
+    }
+
+    @Test
+    void getLongType() {
+        Property property = ImmutableProperty.build("a", 1L);
+
+        assertEquals(PropertyType.LONG, property.getType());
+    }
+
+    @Test
+    void getDoubleType() {
+        Property property = ImmutableProperty.build("a", 1.1D);
+
+        assertEquals(PropertyType.DOUBLE, property.getType());
+    }
+
+    @Test
+    void getBooleanType() {
+        Property property = ImmutableProperty.build("a", true);
+
+        assertEquals(PropertyType.BOOLEAN, property.getType());
+    }
+
+    @Test
+    void getObjectType() {
+        Property property = ImmutableProperty.build("a", new Example(1));
+
+        assertEquals(PropertyType.OBJECT, property.getType());
+    }
+
+    @Test
+    void getListType() {
+        Property property = ImmutableProperty.build("a", List.of(new Example(1)));
+
+        assertEquals(PropertyType.LIST, property.getType());
+    }
+
+    @Test
+    void getNullType() {
+        Example example = null;
+        Property property = ImmutableProperty.build("a", example);
+
+        assertEquals(PropertyType.NULL, property.getType());
     }
 }

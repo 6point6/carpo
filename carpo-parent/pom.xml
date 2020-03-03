@@ -27,6 +27,8 @@
         <!-- Dependency version       -->
         <slf4j.version>1.7.30</slf4j.version>
         <jacoco.version>0.8.5</jacoco.version>
+        <commons3.version>3.9</commons3.version>
+        <guava.version>28.2-jre</guava.version>
 
         <javadoc-plugin.version>3.1.1</javadoc-plugin.version>
         <deploy.version>2.8.2</deploy.version>
@@ -52,6 +54,18 @@
                 <version>${slf4j.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons3.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
 
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
@@ -62,6 +76,12 @@
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-params</artifactId>
                 <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>

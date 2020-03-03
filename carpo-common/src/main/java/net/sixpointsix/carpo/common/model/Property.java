@@ -139,4 +139,32 @@ public interface Property {
      * @return true if the list is a string
      */
     Boolean hasListValue();
+
+    /**
+     * Get the type of the property
+     *
+     * @return Property type
+     */
+    default PropertyType getType() {
+        if(hasStringValue()) {
+            return PropertyType.STRING;
+        }
+        if(hasLongValue()) {
+            return PropertyType.LONG;
+        }
+        if(hasDoubleValue()) {
+            return PropertyType.DOUBLE;
+        }
+        if(hasBooleanValue()) {
+            return PropertyType.BOOLEAN;
+        }
+        if(hasObjectValue()) {
+            return PropertyType.OBJECT;
+        }
+        if(hasListValue()) {
+            return PropertyType.LIST;
+        }
+
+        return PropertyType.NULL;
+    }
 }
