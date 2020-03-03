@@ -23,4 +23,5 @@ nav:
   - Modules:
       - Common: modules/common.md
       - Case: modules/case_data.md
+      - Serialization: modules/serialization.md
   - Contributing: contributing.md
