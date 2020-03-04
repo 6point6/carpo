@@ -45,3 +45,70 @@ jobs:
         run: bash <(curl -s https://codecov.io/bash)
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+
+  integration-h2:
+
+    runs-on: ${{ matrix.os }}
+
+    needs:
+      - test
+
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+        java:
+          - 11
+          - 12
+          - 13
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK ${{ matrix.java }} on ${{ matrix.os }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Test with Maven
+        run: mvn -B clean test --file pom.xml -DexcludedTests="" -DrunTests=IT -Djdbc
+
+  integration-pg:
+
+    runs-on: ${{ matrix.os }}
+
+    needs:
+      - test
+
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+        java:
+          - 11
+          - 12
+          - 13
+
+    services:
+      postgres:
+        image: postgres:10.8
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK ${{ matrix.java }} on ${{ matrix.os }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Test with Maven
+        run: mvn -B clean test --file pom.xml -DexcludedTests="" -DrunTests=IT -DjdbcUrl="jdbc:postgresql://postgres:${{ job.services.postgres.ports[5432] }}/database" -DjdbcUsername=postgres -DjbdcPassword=postgres

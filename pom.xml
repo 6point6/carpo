@@ -12,9 +12,11 @@
 
     <modules>
         <module>carpo-parent</module>
+        <module>carpo-test</module>
         <module>carpo-common</module>
         <module>carpo-case-data</module>
         <module>carpo-serialization</module>
+        <module>carpo-case-data-relational</module>
         <!--        <module>carpo-mi</module>-->
     </modules>
     <properties>

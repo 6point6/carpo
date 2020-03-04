@@ -29,14 +29,26 @@
         <jacoco.version>0.8.5</jacoco.version>
         <commons3.version>3.9</commons3.version>
         <guava.version>28.2-jre</guava.version>
+        <jdbi.version>3.12.0</jdbi.version>
 
         <javadoc-plugin.version>3.1.1</javadoc-plugin.version>
         <deploy.version>2.8.2</deploy.version>
         <source-plugin.version>3.2.1</source-plugin.version>
 
+        <liquibase-version>3.8.7</liquibase-version>
+
         <!-- Test Versions   -->
         <junit.version>5.6.0</junit.version>
         <surefire-plugin.version>2.22.2</surefire-plugin.version>
+        <h2.version>1.4.200</h2.version>
+
+        <!-- Test properties -->
+        <excludedTests>IT</excludedTests>
+        <runTests>*</runTests>
+        <jdbc.url>jdbc:h2:mem:carpo</jdbc.url>
+        <jdbc.username>sa</jdbc.username>
+        <jdbc.password>sa</jdbc.password>
+
     </properties>
 
     <dependencyManagement>
@@ -47,6 +59,31 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>net.sixpointsix</groupId>
+                <artifactId>carpo-case-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jdbi</groupId>
+                <artifactId>jdbi3-bom</artifactId>
+                <type>pom</type>
+                <version>${jdbi.version}</version>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jdbi</groupId>
+                <artifactId>jdbi3-core</artifactId>
+                <version>${jdbi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jdbi</groupId>
+                <artifactId>jdbi3-sqlobject</artifactId>
+                <version>${jdbi.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -64,6 +101,12 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-core</artifactId>
+                <version>${liquibase-version}</version>
             </dependency>
 
 
@@ -85,6 +128,20 @@
                 <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
+
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>net.sixpointsix</groupId>
+                <artifactId>carpo-test</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -114,6 +171,13 @@
                 <version>${surefire-plugin.version}</version>
                 <configuration>
                     <argLine>${surefireArgLine}</argLine>
+                    <excludedGroups>${excludedTests}</excludedGroups>
+                    <groups>${runTests}</groups>
+                    <systemProperties>
+                        <jdbcUrl>${jdbc.url}</jdbcUrl>
+                        <jdbcUsername>${jdbc.username}</jdbcUsername>
+                        <jdbcPassword>${jdbc.password}</jdbcPassword>
+                    </systemProperties>
                 </configuration>
             </plugin>
         </plugins>
