@@ -9,15 +9,15 @@
         <relativePath>../carpo-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <description>Common until library for carpo</description>
-    <name>Carpo Util Library</name>
+    <description>MI library for carpo core</description>
+    <name>Carpo MI Data</name>
 
-    <artifactId>carpo-common</artifactId>
+    <artifactId>carpo-mi</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
+            <groupId>net.sixpointsix</groupId>
+            <artifactId>carpo-common</artifactId>
         </dependency>
 
         <dependency>
@@ -28,27 +28,10 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>com.univocity</groupId>
-            <artifactId>univocity-parsers</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
         </dependency>
     </dependencies>
-
 
 </project>

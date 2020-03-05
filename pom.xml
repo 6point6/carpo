@@ -15,7 +15,7 @@
         <module>carpo-common</module>
         <module>carpo-case-data</module>
         <module>carpo-serialization</module>
-        <!--        <module>carpo-mi</module>-->
+        <module>carpo-mi</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

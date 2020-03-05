@@ -19,6 +19,8 @@ jobs:
           - carpo-parent
           - carpo-common
           - carpo-case-data
+          - carpo-mi
+          - carpo-serialization
 
     steps:
       - uses: actions/checkout@v2
