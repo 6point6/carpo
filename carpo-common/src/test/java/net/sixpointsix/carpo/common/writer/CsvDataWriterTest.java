@@ -14,6 +14,9 @@ import static org.mockito.Mockito.when;
 
 class CsvDataWriterTest {
 
+    private static final String lineSeparator = System.lineSeparator();
+
+
     @Test
     void writeData() {
         DataPointRow row = mock(DataPointRow.class);
@@ -26,8 +29,8 @@ class CsvDataWriterTest {
         CsvDataWriter csvDataWriter = new CsvDataWriter();
         OutputStream outputStream = csvDataWriter.writeDataSet(dataSet);
 
-        String expected = "H1,H2\n" +
-                "a,b\n";
+        String expected = "H1,H2" + lineSeparator +
+                "a,b" + lineSeparator;
 
         assertEquals(expected, outputStream.toString());
     }
