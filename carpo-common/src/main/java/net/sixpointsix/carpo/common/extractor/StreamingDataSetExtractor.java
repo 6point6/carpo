@@ -31,7 +31,7 @@ public class StreamingDataSetExtractor implements DataSetExtractor {
                 .map(e -> {
                     return extractionMethodList
                             .stream()
-                            .map(m -> extractToDatapoint(e, m))
+                            .map(m -> extractToDataPoint(e, m))
                             .collect(Collectors.toList());
                 })
                 .map(DataPointRow::new)
@@ -40,7 +40,7 @@ public class StreamingDataSetExtractor implements DataSetExtractor {
         return new ListDataSet(rows);
     }
 
-    private DataPoint extractToDatapoint(PropertyHoldingEntity entity, DataElement<?> element) {
+    private DataPoint extractToDataPoint(PropertyHoldingEntity entity, DataElement<?> element) {
         String value = element.extract(entity, propertyExtractor);
 
         return new DataPoint(element.getRowHeader(), value);

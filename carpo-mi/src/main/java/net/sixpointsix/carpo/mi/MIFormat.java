@@ -1,4 +1,12 @@
 package net.sixpointsix.carpo.mi;
 
-public class MIFormat {
+/**
+ * Possible format for the MI
+ */
+public enum  MIFormat {
+
+    CSV,
+    TSV,
+    EXCEL,
+    JSON
 }
