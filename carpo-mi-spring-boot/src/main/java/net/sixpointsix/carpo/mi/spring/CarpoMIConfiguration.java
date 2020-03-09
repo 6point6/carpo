@@ -43,4 +43,9 @@ public class CarpoMIConfiguration {
     public MIConfiguration miConfiguration() {
         return new MIConfiguration();
     }
+
+    @Bean
+    public SpringMIExtractionConfiguration springMIExtractionConfiguration(MIConfiguration configuration) {
+        return new SpringMIExtractionConfiguration(configuration);
+    }
 }

@@ -28,4 +28,30 @@ public class MIInstance {
      */
     private List<MIValue> values = new ArrayList<>();
 
+    public String getName() {
+        return name;
+    }
+
+    public MIFormat getOutputFormat() {
+        return outputFormat;
+    }
+
+    public List<MIValue> getValues() {
+        return values;
+    }
+
+    public MIInstance setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public MIInstance setOutputFormat(MIFormat outputFormat) {
+        this.outputFormat = outputFormat;
+        return this;
+    }
+
+    public MIInstance setValues(List<MIValue> values) {
+        this.values = values;
+        return this;
+    }
 }
