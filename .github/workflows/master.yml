@@ -44,6 +44,7 @@ jobs:
           - carpo-parent
           - carpo-common
           - carpo-case-data
+          - carpo-case-data-relational
           - carpo-serialization
 
     steps:

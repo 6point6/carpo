@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+         http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd">
+
+    <changeSet id="carpo-case-relational-1" author="carpo">
+        <comment>Create the carpo case table</comment>
+
+        <createTable tableName="carpo_case">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" unique="true" />
+            </column>
+            <column name="created_at" type="timestamp" />
+            <column name="last_updated" type="timestamp" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="carpo-case-relational-2" author="carpo">
+        <comment>Create property table</comment>
+
+        <createTable tableName="carpo_case_property">
+            <column type="varchar(255)" name="id">
+                <constraints primaryKey="true" unique="true" />
+            </column>
+            <column type="varchar(255)" name="property_key" />
+            <column type="varchar(200000)" name="string_value"/>
+            <column type="int" name="long_value"/>
+            <column type="float" name="double_value"/>
+            <column type="boolean" name="boolean_value"/>
+            <column type="boolean" name="null_value"/>
+            <column type="varchar(255)" name="property_type" />
+            <column type="varchar(255)" name="carpo_case_id" >
+                <constraints foreignKeyName="carpo_property_case_fk"
+                             referencedColumnNames="id"
+                             referencedTableName="carpo_case" />
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

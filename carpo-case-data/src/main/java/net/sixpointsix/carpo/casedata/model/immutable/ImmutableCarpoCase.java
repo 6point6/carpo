@@ -13,6 +13,13 @@ import net.sixpointsix.carpo.common.model.immutable.AbstractImmutableCarpoProper
  */
 public class ImmutableCarpoCase extends AbstractImmutableCarpoPropertyEntity implements CarpoCase {
 
+
+    /**
+     * Build the basic properties of a carpo case
+     * @param carpoId id of the entity
+     * @param timestamp created timestamp
+     * @param properties property collection
+     */
     public ImmutableCarpoCase(String carpoId, Timestamp timestamp, PropertyCollection properties) {
         super(carpoId, timestamp, properties);
     }

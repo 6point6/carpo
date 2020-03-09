@@ -2,6 +2,7 @@ package net.sixpointsix.carpo.common.model;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * A property is a generic data structure to that contains data required by modules or end users
@@ -15,6 +16,19 @@ import java.util.Optional;
  * @since 0.0.1
  */
 public interface Property {
+
+    /**
+     * Get the property unique id
+     *
+     * <p>
+     *     The id should be unique across all properties whereas the key only needs to
+     *     be unique within this entity
+     * </p>
+     * @return String id
+     */
+    default String getId() {
+        return UUID.randomUUID().toString();
+    }
 
     /**
      * The key is the unique identifier for the property

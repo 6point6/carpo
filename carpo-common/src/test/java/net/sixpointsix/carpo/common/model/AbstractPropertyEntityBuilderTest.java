@@ -56,6 +56,23 @@ class AbstractPropertyEntityBuilderTest {
     }
 
     @Test
+    void buildWithUUIDValues() {
+        UUID id = UUID.randomUUID();
+        Timestamp timestamp = ImmutableTimestamp.build();
+
+        ExampleBuilder builder = new ExampleBuilder();
+        builder.setCarpoId(id);
+        builder.setTimestamp(timestamp);
+        builder.addProperty(ImmutableProperty.build("a", "b"));
+
+        ExampleEntity exampleEntity = builder.build();
+
+        assertEquals(id.toString(), exampleEntity.getCarpoId());
+        assertEquals(timestamp, exampleEntity.getTimestamp());
+        assertFalse(exampleEntity.getProperties().isEmpty());
+    }
+
+    @Test
     void buildWithWithNowTimestamp() {
         String id = UUID.randomUUID().toString();
 
