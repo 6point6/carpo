@@ -19,6 +19,7 @@ jobs:
           - carpo-parent
           - carpo-common
           - carpo-case-data
+          - carpo-case-data-relational
           - carpo-mi
           - carpo-mi-spring-boot
           - carpo-serialization
