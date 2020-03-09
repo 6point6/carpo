@@ -30,6 +30,10 @@
         <commons3.version>3.9</commons3.version>
         <guava.version>28.2-jre</guava.version>
         <jdbi.version>3.12.0</jdbi.version>
+        <univocity-parser.vesion>2.8.4</univocity-parser.vesion>
+        <poi.version>4.1.2</poi.version>
+        <mockito.version>1.10.19</mockito.version>
+        <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
 
         <javadoc-plugin.version>3.1.1</javadoc-plugin.version>
         <deploy.version>2.8.2</deploy.version>
@@ -56,6 +60,11 @@
             <dependency>
                 <groupId>net.sixpointsix</groupId>
                 <artifactId>carpo-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sixpointsix</groupId>
+                <artifactId>carpo-mi</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -109,6 +118,36 @@
                 <version>${liquibase-version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.univocity</groupId>
+                <artifactId>univocity-parsers</artifactId>
+                <version>${univocity-parser.vesion}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-autoconfigure</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
+                <version>${spring-boot.version}</version>
+                <optional>true</optional>
+            </dependency>
 
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
@@ -142,6 +181,19 @@
                 <scope>test</scope>
             </dependency>
 
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -374,6 +426,7 @@
         <developer>
             <name>Andrew Tarry</name>
             <email>andrew.tarry@6point6.co.uk</email>
+            <url>https://github.com/andrewtarry</url>
         </developer>
     </developers>
 </project>
