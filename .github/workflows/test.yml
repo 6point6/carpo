@@ -107,4 +107,4 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
       - name: Test with Maven
-        run: mvn -B clean test --file pom.xml -DexcludedTests="" -DrunTests=IT -DjdbcUrl="jdbc:postgresql://postgres:${{ job.services.postgres.ports[5432] }}/database" -DjdbcUsername=postgres -DjbdcPassword=postgres
+        run: mvn -B clean test --file pom.xml -DexcludedTests="" -DrunTests=IT -DjdbcUrl="jdbc:postgresql://localhost:${{ job.services.postgres.ports[5432] }}/database" -DjdbcUsername=postgres -DjbdcPassword=postgres
