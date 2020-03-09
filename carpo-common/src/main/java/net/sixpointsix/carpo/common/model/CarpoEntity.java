@@ -35,5 +35,4 @@ public interface CarpoEntity {
      * @return Timestamp
      */
     Timestamp getTimestamp();
-
 }

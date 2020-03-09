@@ -91,6 +91,29 @@ class ImmutablePropertyTest {
     }
 
     @Test
+    void intValue() {
+        int value = 1;
+        Property property = ImmutableProperty.build("a", value);
+
+        assertEquals("a", property.getKey());
+        assertEquals(value, property.getLongValue().get());
+
+        assertFalse(property.hasStringValue());
+        assertFalse(property.hasDoubleValue());
+        assertTrue(property.hasLongValue());
+        assertFalse(property.hasBooleanValue());
+        assertFalse(property.hasListValue());
+        assertFalse(property.hasObjectValue());
+
+        assertFalse(property.isNull());
+
+        assertFalse(property.getStringValue().isPresent());
+        assertFalse(property.getDoubleValue().isPresent());
+        assertTrue(property.getLongValue().isPresent());
+        assertFalse(property.getBooleanValue().isPresent());
+    }
+
+    @Test
     void booleanValue() {
         boolean value = true;
         Property property = ImmutableProperty.build("a", value);

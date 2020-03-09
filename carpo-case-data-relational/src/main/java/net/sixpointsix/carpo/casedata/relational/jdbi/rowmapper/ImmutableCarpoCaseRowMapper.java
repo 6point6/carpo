@@ -2,6 +2,7 @@ package net.sixpointsix.carpo.casedata.relational.jdbi.rowmapper;
 
 import net.sixpointsix.carpo.casedata.model.CarpoCase;
 import net.sixpointsix.carpo.casedata.model.builder.CarpoCaseBuilder;
+import net.sixpointsix.carpo.casedata.relational.jdbi.CarpoCaseColumn;
 import net.sixpointsix.carpo.common.model.Timestamp;
 import net.sixpointsix.carpo.common.model.immutable.ImmutableTimestamp;
 import org.jdbi.v3.core.mapper.RowMapper;
@@ -21,9 +22,9 @@ public class ImmutableCarpoCaseRowMapper implements RowMapper<CarpoCase> {
 
     @Override
     public CarpoCase map(ResultSet rs, StatementContext ctx) throws SQLException {
-        String id = rs.getString("c_id");
-        LocalDateTime createdAt = rs.getTimestamp("c_created_at").toLocalDateTime();
-        LocalDateTime lastUpdated = rs.getTimestamp("c_last_updated").toLocalDateTime();
+        String id = rs.getString(CarpoCaseColumn.CASE_ID_COL);
+        LocalDateTime createdAt = rs.getTimestamp(CarpoCaseColumn.CASE_CREATED_COL).toLocalDateTime();
+        LocalDateTime lastUpdated = rs.getTimestamp(CarpoCaseColumn.CASE_LAST_UPDATED).toLocalDateTime();
 
         Timestamp timestamp = ImmutableTimestamp.build(createdAt, lastUpdated);
 

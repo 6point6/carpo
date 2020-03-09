@@ -44,6 +44,13 @@ abstract public class AbstractPropertyEntityBuilder<T extends CarpoPropertyEntit
     }
 
     /**
+     * Set the ID to a random string
+     */
+    public void setRandomId() {
+        setCarpoId(UUID.randomUUID());
+    }
+
+    /**
      * Set the timestamp
      *
      * @param timestamp Timestamp to set
