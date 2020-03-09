@@ -3,15 +3,19 @@ package net.sixpointsix.carpo.common.extractor;
 import net.sixpointsix.carpo.common.model.Property;
 import net.sixpointsix.carpo.common.model.PropertyCollection;
 import net.sixpointsix.carpo.common.model.PropertyHoldingEntity;
-import net.sixpointsix.carpo.common.model.PropertyType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.PropertyPermission;
 import java.util.function.Function;
 
+/**
+ * Extract properties from the entities without going past the top level of the collection
+ *
+ * @author Andrew Tarry
+ * @since 0.2.0
+ */
 public class DirectPropertyExtractor implements PropertyExtractor {
 
     private static final Logger logger = LoggerFactory.getLogger(DirectPropertyExtractor.class);

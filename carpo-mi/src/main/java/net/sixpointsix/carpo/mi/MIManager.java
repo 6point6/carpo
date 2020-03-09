@@ -2,6 +2,7 @@ package net.sixpointsix.carpo.mi;
 
 import net.sixpointsix.carpo.common.extractor.method.ReadOnlyExtractionMethodList;
 import net.sixpointsix.carpo.common.model.PropertyHoldingEntity;
+import net.sixpointsix.carpo.mi.exception.MethodListNotFound;
 
 import java.io.OutputStream;
 import java.util.List;
@@ -25,5 +26,18 @@ public interface MIManager {
      * @param methodList methods to get data
      * @return output
      */
-    OutputStream createMi(List<PropertyHoldingEntity> entityList, ReadOnlyExtractionMethodList methodList);
+    OutputStream createMI(List<PropertyHoldingEntity> entityList, ReadOnlyExtractionMethodList methodList);
+
+    /**
+     * Convert an entity list to a CSV data set
+     *
+     * <p>
+     *     Pass in a configuration key to load the extractors
+     * </p>
+     * @param entityList list of entities
+     * @param methodListName name of the method list
+     * @throws MethodListNotFound if the method list is not available
+     * @return output stream
+     */
+    OutputStream createMI(List<PropertyHoldingEntity> entityList, String methodListName);
 }

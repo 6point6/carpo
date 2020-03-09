@@ -11,6 +11,14 @@ import java.util.stream.Stream;
 public interface ReadOnlyExtractionMethodList {
 
     /**
+     * Get an empty method list
+     * @return empty list
+     */
+    static ReadOnlyExtractionMethodList empty() {
+        return new ExtractionMethodList();
+    }
+
+    /**
      * Get the size of the collection
      * @return collection size
      */
