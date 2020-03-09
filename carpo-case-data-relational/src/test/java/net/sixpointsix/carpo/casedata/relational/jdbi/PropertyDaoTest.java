@@ -33,6 +33,6 @@ class PropertyDaoTest {
 
         jdbi.useExtension(CaseDataDao.class, h -> h.insertCaseData(carpoCase.getCarpoId(), carpoCase.getTimestamp().getCreatedAt(), carpoCase.getTimestamp().getLastUpdated()));
 
-        jdbi.useExtension(PropertyDao.class, h -> h.insert(property, id.toString()));
+        jdbi.useExtension(PropertyDao.class, h -> h.insert(new PropertyWrapper(property), id.toString()));
     }
 }
