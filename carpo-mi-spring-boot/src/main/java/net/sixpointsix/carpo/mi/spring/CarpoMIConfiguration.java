@@ -12,6 +12,12 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Spring boot configuration for MI creation
+ *
+ * @author Andrew Tarry
+ * @since 0.3.0
+ */
 @Configuration
 public class CarpoMIConfiguration {
 

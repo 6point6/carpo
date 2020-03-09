@@ -10,6 +10,12 @@ import net.sixpointsix.carpo.mi.spring.exception.MappingNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Spring MI Extraction methods to load from named configuration
+ *
+ * @author Andrew Tarry
+ * @since 0.3.0
+ */
 public class SpringMIExtractionConfiguration implements MIExtractionConfiguration {
 
     private final MIConfiguration miConfiguration;
