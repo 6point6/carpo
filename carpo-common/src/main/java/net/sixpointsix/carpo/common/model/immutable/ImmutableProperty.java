@@ -1,10 +1,12 @@
 package net.sixpointsix.carpo.common.model.immutable;
 
+import com.google.common.collect.Iterables;
 import net.sixpointsix.carpo.common.model.Property;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -450,6 +452,49 @@ public final class ImmutableProperty implements Property {
     @Override
     public String getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ImmutableProperty that = (ImmutableProperty) o;
+
+        if(!Objects.equals(getKey(), that.getKey()) || !Objects.equals(getType(), that.getType())) {
+            return false;
+        }
+        boolean match = false;
+
+        switch (getType()) {
+            case STRING:
+                match = Objects.equals(stringValue, that.stringValue);
+                break;
+            case LONG:
+                match = Objects.equals(longValue, that.longValue);
+                break;
+            case DOUBLE:
+                match = Objects.equals(doubleValue, that.doubleValue);
+                break;
+            case BOOLEAN:
+                match = Objects.equals(booleanValue, that.booleanValue);
+                break;
+            case OBJECT:
+                match = Objects.equals(objectValue, that.objectValue);
+                break;
+            case LIST:
+                match = Objects.equals(listValue, that.listValue);
+                break;
+            case NULL:
+                match = that.isNull();
+                break;
+        }
+
+        return match;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, key, stringValue, doubleValue, longValue, booleanValue, objectValue, listValue);
     }
 
     /**

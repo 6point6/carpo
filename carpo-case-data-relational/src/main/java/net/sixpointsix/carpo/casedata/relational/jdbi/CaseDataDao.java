@@ -28,6 +28,14 @@ public interface CaseDataDao {
                         @Bind("createdAt") LocalDateTime createdAt,
                         @Bind("lastUpdated") LocalDateTime lastUpdated);
 
+    /**
+     * Update the last updated timestamp
+     * @param id id of the case
+     * @param lastUpdated current time
+     */
+    @SqlUpdate
+    void updateCase(@Bind("id") String id,
+                    @Bind("lastUpdated") LocalDateTime lastUpdated);
 
     @SqlQuery
     @RegisterRowMapper(ImmutableCarpoCaseRowMapper.class)

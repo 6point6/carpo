@@ -5,10 +5,15 @@ import net.sixpointsix.carpo.casedata.relational.jdbi.CaseDataDao;
 import net.sixpointsix.carpo.casedata.relational.jdbi.PropertyDao;
 import net.sixpointsix.carpo.casedata.relational.jdbi.model.PropertyWrapper;
 import net.sixpointsix.carpo.casedata.repository.CaseDataEntityRepository;
+import net.sixpointsix.carpo.common.model.Property;
 import org.jdbi.v3.core.Jdbi;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
+/**
+ * Case data repository using a relational database
+ */
 public class RelationalCaseDataEntityRepository implements CaseDataEntityRepository {
 
     private final Jdbi jdbi;
@@ -26,10 +31,7 @@ public class RelationalCaseDataEntityRepository implements CaseDataEntityReposit
     public void create(CarpoCase entity) {
         jdbi.useExtension(CaseDataDao.class, h -> h.insertCaseData(entity.getCarpoId(), entity.getTimestamp().getCreatedAt(), entity.getTimestamp().getLastUpdated()));
         entity.getProperties()
-                .forEach(p -> {
-                    PropertyWrapper wrapper = new PropertyWrapper(p);
-                    jdbi.useExtension(PropertyDao.class, h -> h.insert(wrapper, entity.getCarpoId()));
-                });
+                .forEach(p -> insertProperty(p, entity));
     }
 
     /**
@@ -39,7 +41,23 @@ public class RelationalCaseDataEntityRepository implements CaseDataEntityReposit
      */
     @Override
     public void update(CarpoCase entity) {
-        // TODO
+        jdbi.useExtension(CaseDataDao.class, h -> h.updateCase(entity.getCarpoId(), LocalDateTime.now()));
+        entity
+                .getProperties()
+                .parallelStream()
+                .forEach(p -> {
+                    Optional<Property> existingPropertyOptional = jdbi.withExtension(PropertyDao.class, h -> h.selectByKey(entity.getCarpoId(), p.getKey()));
+
+                    if(existingPropertyOptional.isPresent()) {
+                        final Property existingProperty = existingPropertyOptional.get();
+
+                        if(!existingProperty.equals(p)) {
+                            jdbi.useExtension(PropertyDao.class, h -> h.updateProperty(p));
+                        }
+                    } else {
+                        insertProperty(p, entity);
+                    }
+                });
     }
 
     /**
@@ -61,5 +79,15 @@ public class RelationalCaseDataEntityRepository implements CaseDataEntityReposit
     @Override
     public Optional<CarpoCase> getById(String id) {
         return jdbi.withExtension(CaseDataDao.class, h -> h.selectById(id));
+    }
+
+    /**
+     * Insert a property into the database
+     * @param property to be inserted
+     * @param carpoCase case that owns the property
+     */
+    private void insertProperty(Property property, CarpoCase carpoCase) {
+        PropertyWrapper wrapper = new PropertyWrapper(property);
+        jdbi.useExtension(PropertyDao.class, h -> h.insert(wrapper, carpoCase.getCarpoId()));
     }
 }

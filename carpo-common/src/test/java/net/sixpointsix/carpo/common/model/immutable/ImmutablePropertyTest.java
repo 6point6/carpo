@@ -3,8 +3,13 @@ package net.sixpointsix.carpo.common.model.immutable;
 import net.sixpointsix.carpo.common.model.Property;
 import net.sixpointsix.carpo.common.model.PropertyType;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,6 +24,14 @@ class ImmutablePropertyTest {
 
         public int getA() {
             return a;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Example example = (Example) o;
+            return a == example.a;
         }
     }
 
@@ -316,5 +329,44 @@ class ImmutablePropertyTest {
         Property property = ImmutableProperty.build("a", example);
 
         assertEquals(PropertyType.NULL, property.getType());
+    }
+
+    public static Stream<Arguments> equalsArguments() {
+        return Stream.of(
+                Arguments.arguments(ImmutableProperty.build("a", "b"), ImmutableProperty.build("b", "b"), false),
+                Arguments.arguments(ImmutableProperty.build("a", "b"), ImmutableProperty.build("a", "b"), true),
+                Arguments.arguments(ImmutableProperty.build("a", "b"), ImmutableProperty.build("a", "c"), false),
+                Arguments.arguments(ImmutableProperty.build("a", "b"), ImmutableProperty.build("a", 1), false),
+                Arguments.arguments(ImmutableProperty.build("a", "b"), ImmutableProperty.build("a", 1.2), false),
+                Arguments.arguments(ImmutableProperty.build("a", "b"), ImmutableProperty.build("a", true), false),
+                Arguments.arguments(ImmutableProperty.build("a", 1), ImmutableProperty.build("a", 1), true),
+                Arguments.arguments(ImmutableProperty.build("a", 1), ImmutableProperty.build("a", 2), false),
+                Arguments.arguments(ImmutableProperty.build("a", 1), ImmutableProperty.build("a", "b"), false),
+                Arguments.arguments(ImmutableProperty.build("a", 1), ImmutableProperty.build("a", 1.2), false),
+                Arguments.arguments(ImmutableProperty.build("a", 1), ImmutableProperty.build("a", true), false),
+                Arguments.arguments(ImmutableProperty.build("a", 1.2), ImmutableProperty.build("a", 1), false),
+                Arguments.arguments(ImmutableProperty.build("a", 1.2), ImmutableProperty.build("a", 2.2), false),
+                Arguments.arguments(ImmutableProperty.build("a", 1.2), ImmutableProperty.build("a", "b"), false),
+                Arguments.arguments(ImmutableProperty.build("a", 1.2), ImmutableProperty.build("a", 1.2), true),
+                Arguments.arguments(ImmutableProperty.build("a", 1.2), ImmutableProperty.build("a", true), false),
+                Arguments.arguments(ImmutableProperty.build("a", true), ImmutableProperty.build("a", 1), false),
+                Arguments.arguments(ImmutableProperty.build("a", true), ImmutableProperty.build("a", false), false),
+                Arguments.arguments(ImmutableProperty.build("a", true), ImmutableProperty.build("a", "b"), false),
+                Arguments.arguments(ImmutableProperty.build("a", true), ImmutableProperty.build("a", 1.2), false),
+                Arguments.arguments(ImmutableProperty.build("a", true), ImmutableProperty.build("a", true), true),
+                Arguments.arguments(ImmutableProperty.build("a", new Object()), ImmutableProperty.build("a", 1), false),
+                Arguments.arguments(ImmutableProperty.build("a", new Object()), ImmutableProperty.build("a", 2.2), false),
+                Arguments.arguments(ImmutableProperty.build("a", new Object()), ImmutableProperty.build("a", "b"), false),
+                Arguments.arguments(ImmutableProperty.build("a", new Example(1)), ImmutableProperty.build("a", new Example(1)), true),
+                Arguments.arguments(ImmutableProperty.build("a", new Object()), ImmutableProperty.build("a", true), false),
+                Arguments.arguments(ImmutableProperty.build("a", List.of(new Example(1))), ImmutableProperty.build("a", List.of(new Example(1))), true)
+
+                );
+    }
+
+    @ParameterizedTest
+    @MethodSource("equalsArguments")
+    void testEquals(ImmutableProperty property1, ImmutableProperty property2, boolean expected) {
+        assertEquals(expected, property1.equals(property2));
     }
 }

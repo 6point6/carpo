@@ -4,6 +4,7 @@ import net.sixpointsix.carpo.common.model.Property;
 import net.sixpointsix.carpo.common.model.PropertyCollection;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class MutablePropertyCollection extends ArrayList<Property> implements PropertyCollection {
 
@@ -131,5 +132,30 @@ public class MutablePropertyCollection extends ArrayList<Property> implements Pr
     @Override
     public <T> List<T> getListByKey(String key, Class<T> type) {
         return getByKey(key).map(o -> o.getListValue(type)).orElse(List.of());
+    }
+
+    /**
+     * Replace a property in a collection with another property by key
+     *
+     * @param property to be put in place of the existing value
+     */
+    @Override
+    public boolean add(Property property) {
+        if(property == null) {
+            return false;
+        }
+
+        OptionalInt index = IntStream
+                .range(0, size())
+                .filter(i -> property.getKey().equalsIgnoreCase(get(i).getKey()))
+                .findFirst();
+
+        if(index.isPresent()) {
+            set(index.getAsInt(), property);
+        } else {
+            super.add(property);
+        }
+
+        return true;
     }
 }

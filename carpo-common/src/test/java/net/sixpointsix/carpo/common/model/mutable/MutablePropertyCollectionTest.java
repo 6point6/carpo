@@ -110,4 +110,37 @@ class MutablePropertyCollectionTest {
         assertEquals(1, mutablePropertyCollection.getListByKey("a", Example.class).size());
         assertEquals(example, mutablePropertyCollection.getListByKey("a", Example.class).get(0));
     }
+
+    @Test
+    void replaceWithNull() {
+        Property property = ImmutableProperty.build("a", "b");
+        MutablePropertyCollection mutablePropertyCollection = new MutablePropertyCollection();
+        mutablePropertyCollection.add(property);
+
+        assertFalse(mutablePropertyCollection.add(null));
+        assertEquals("b", mutablePropertyCollection.getStringByKey("a").get());
+    }
+
+    @Test
+    void replaceWithNewValue() {
+        Property property = ImmutableProperty.build("a", "b");
+        MutablePropertyCollection mutablePropertyCollection = new MutablePropertyCollection();
+        mutablePropertyCollection.add(property);
+
+        assertTrue(mutablePropertyCollection.add(ImmutableProperty.build("a", "c")));
+        assertEquals(1, mutablePropertyCollection.size());
+        assertEquals("c", mutablePropertyCollection.getStringByKey("a").get());
+    }
+
+    @Test
+    void addNewValue() {
+        Property property = ImmutableProperty.build("a", "b");
+        MutablePropertyCollection mutablePropertyCollection = new MutablePropertyCollection();
+        mutablePropertyCollection.add(property);
+
+        assertTrue(mutablePropertyCollection.add(ImmutableProperty.build("z", "c")));
+        assertEquals(2, mutablePropertyCollection.size());
+        assertEquals("b", mutablePropertyCollection.getStringByKey("a").get());
+        assertEquals("c", mutablePropertyCollection.getStringByKey("z").get());
+    }
 }
