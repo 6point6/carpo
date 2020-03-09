@@ -20,6 +20,7 @@ jobs:
           - carpo-common
           - carpo-case-data
           - carpo-mi
+          - carpo-mi-spring-boot
           - carpo-serialization
 
     steps:
