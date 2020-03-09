@@ -40,6 +40,7 @@
         <source-plugin.version>3.2.1</source-plugin.version>
 
         <liquibase-version>3.8.7</liquibase-version>
+        <postgres.version>42.2.10</postgres.version>
 
         <!-- Test Versions   -->
         <junit.version>5.6.0</junit.version>
@@ -92,6 +93,13 @@
                 <groupId>org.jdbi</groupId>
                 <artifactId>jdbi3-sqlobject</artifactId>
                 <version>${jdbi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgres.version}</version>
+                <scope>runtime</scope>
             </dependency>
 
             <dependency>
