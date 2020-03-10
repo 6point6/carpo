@@ -54,27 +54,17 @@ public class PropertyMapperTest {
     void shouldReturnNestedValue() {
         String id = UUID.randomUUID().toString();
         Timestamp timestamp = ImmutableTimestamp.build();
-
-        ExampleStringObject eso = new ExampleStringObject("d");
-        Property property = ImmutableProperty.build("c", eso);
-
-        ExampleNestedObject eno = new ExampleNestedObject(property);
-        Property propertyTwo = ImmutableProperty.build("b", eno);
-
+        Property tertiaryProperty = ImmutableProperty.build("c", "d");
+        Property secondaryProperty = ImmutableProperty.build("b", tertiaryProperty);
         PropertyMapperTest.ExampleBuilder builder = new ExampleBuilder();
         builder.setCarpoId(id);
         builder.setTimestamp(timestamp);
-        builder.addProperty(ImmutableProperty.build("a", propertyTwo));
-
+        builder.addProperty(ImmutableProperty.build("a", secondaryProperty));
         PropertyMapperTest.ExampleEntity exampleEntity = builder.build();
         exampleEntity.getProperties();
-
         PropertyMapper mapper = new PropertyMapper();
-
         assertEquals(mapper.getStringValue(exampleEntity, "a.b.c").get(), "d");
         assertEquals(mapper.getStringValue(exampleEntity, "a.b.c.d.e").get(), "");
-
-
     }
 
 }
