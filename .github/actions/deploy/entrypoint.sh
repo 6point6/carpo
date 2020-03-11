@@ -7,5 +7,4 @@ export MAVEN_NEXUS_USER=${2}
 export MAVEN_NEXUS_PASSWORD=${3}
 
 echo "${gpg_private_key}" > private-key.txt && gpg --import --no-tty --batch --yes private-key.txt
-cd "${module}" || exit
-mvn deploy -Dgpg.passphrase="${gpg_passphrase}" -DskipTests -P deploy
+./mvnw deploy -Dgpg.passphrase="${gpg_passphrase}" -DskipTests -P deploy --file "${module}"/pom.xml
