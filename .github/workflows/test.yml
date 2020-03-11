@@ -113,6 +113,7 @@ jobs:
           MYSQL_DATABASE: carpo
         ports:
           - 3306/tcp
+        options: --health-cmd /usr/bin/mysql --user=carpo --password=carpo --execute \"SHOW DATABASES;\"
 
     steps:
       - uses: actions/checkout@v2
