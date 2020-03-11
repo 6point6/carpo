@@ -21,3 +21,9 @@ mi:
 
 database:
   - carpo-case-data-relational/**/*
+  - carpo-finance-relational/**/*
+  - carpo-relational-common/**/*
+
+finance:
+  - carpo-finance/**/*
+  - carpo-finance-relational/**/*

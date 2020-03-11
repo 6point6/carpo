@@ -112,7 +112,7 @@ jobs:
           MYSQL_PASSWORD: carpo
           MYSQL_DATABASE: carpo
         ports:
-          - 3306:3306
+          - 3306/tcp
 
     steps:
       - uses: actions/checkout@v2
