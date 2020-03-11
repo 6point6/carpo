@@ -243,6 +243,7 @@ public final class ImmutableProperty implements Property {
                 new MutablePropertyCollection() {{
                     add(value);
                 }},
+                null,
                 null
         );
     }
