@@ -1,0 +1,24 @@
+name: 'MVN Deploy'
+description: 'maven deploy'
+inputs:
+  module-dir:
+    description: 'Directory to input'
+    required: true
+  gpg-passphrase:
+    description: 'GPG passphrase'
+    required: true
+  gpg-private-key:
+    description: 'GPG key'
+    required: true
+  maven-user:
+    description: 'Maven user name'
+    required: true
+  maven-password:
+    description: 'Maven password'
+    required: true
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.module-dir }}
