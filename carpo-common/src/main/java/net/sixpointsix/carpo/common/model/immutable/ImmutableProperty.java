@@ -1,5 +1,6 @@
 package net.sixpointsix.carpo.common.model.immutable;
 
+import com.google.common.collect.Iterables;
 import net.sixpointsix.carpo.common.model.Property;
 import net.sixpointsix.carpo.common.model.PropertyCollection;
 import net.sixpointsix.carpo.common.model.PropertyHoldingEntity;
@@ -8,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -20,6 +22,11 @@ import java.util.stream.Collectors;
 public final class ImmutableProperty implements Property {
 
     private static final Logger logger = LoggerFactory.getLogger(ImmutableProperty.class);
+
+    /**
+     * Id of the property
+     */
+    private final String id;
 
     /**
      * Property key
@@ -56,7 +63,28 @@ public final class ImmutableProperty implements Property {
      */
     private final List<Object> listValue;
 
+    /**
+     * Build a string based property
+     * @param key property key
+     * @param value property value
+     * @return property
+     */
     public static ImmutableProperty build(String key, String value) {
+        return build(
+                key,
+                value,
+                null
+        );
+    }
+
+    /**
+     * Build a string based property
+     * @param key property key
+     * @param value property value
+     * @param id id of the property
+     * @return property
+     */
+    public static ImmutableProperty build(String key, String value, String id) {
         return new ImmutableProperty(
                 key,
                 value,
@@ -64,11 +92,33 @@ public final class ImmutableProperty implements Property {
                 null,
                 null,
                 null,
-                null
+                null,
+                id
         );
     }
 
+    /**
+     * Build a double based property
+     * @param key property key
+     * @param value property value
+     * @return property
+     */
     public static ImmutableProperty build(String key, Double value) {
+        return build(
+                key,
+                value,
+                null
+        );
+    }
+
+    /**
+     * Build a double based property
+     * @param key property key
+     * @param value property value
+     * @param id id of the property
+     * @return property
+     */
+    public static ImmutableProperty build(String key, Double value, String id) {
         return new ImmutableProperty(
                 key,
                 null,
@@ -76,23 +126,67 @@ public final class ImmutableProperty implements Property {
                 null,
                 null,
                 null,
-                null
+                null,
+                id
         );
     }
 
+    /**
+     * Build a long based property
+     * @param key property key
+     * @param value property value
+     * @return property
+     */
     public static ImmutableProperty build(String key, Long value) {
-        return new ImmutableProperty(
+        return build(
                 key,
-                null,
-                null,
                 value,
-                null,
-                null,
                 null
         );
     }
 
+    /**
+     * Build a long based property
+     * @param key property key
+     * @param value property value
+     * @param id id of the property
+     * @return property
+     */
+    public static ImmutableProperty build(String key, Long value, String id) {
+        return new ImmutableProperty(
+                key,
+                null,
+                null,
+                value,
+                null,
+                null,
+                null,
+                id
+        );
+    }
+
+    /**
+     * Build a boolean based property
+     * @param key property key
+     * @param value property value
+     * @return property
+     */
     public static ImmutableProperty build(String key, Boolean value) {
+        return build(
+                key,
+                value,
+                null
+        );
+    }
+
+    /**
+     * Build a boolean based property
+     * @param key property key
+     * @param value property value
+     * @param id id of the property
+     * @return property
+     */
+    public static ImmutableProperty build(String key, Boolean value, String id) {
         return new ImmutableProperty(
                 key,
                 null,
@@ -100,8 +194,30 @@ public final class ImmutableProperty implements Property {
                 null,
                 value,
                 null,
-                null
+                null,
+                id
         );
+    }
+
+    /**
+     * Build a long based property
+     * @param key property key
+     * @param value property value
+     * @return property
+     */
+    public static ImmutableProperty build(String key, Integer value) {
+        return build(key, value.longValue());
+    }
+
+    /**
+     * Build a long based property
+     * @param key property key
+     * @param value property value
+     * @param id id of the property
+     * @return property
+     */
+    public static ImmutableProperty build(String key, Integer value, String id) {
+        return build(key, value.longValue(), id);
     }
 
     public static ImmutableProperty build(String key, Object value) {
@@ -112,6 +228,7 @@ public final class ImmutableProperty implements Property {
                 null,
                 null,
                 value,
+                null,
                 null
         );
     }
@@ -138,11 +255,19 @@ public final class ImmutableProperty implements Property {
                 null,
                 null,
                 null,
-                value
+                value,
+                null
         );
     }
 
-    private ImmutableProperty(String key, String stringValue, Double doubleValue, Long longValue, Boolean booleanValue, Object objectValue, List<Object> listValue) {
+    private ImmutableProperty(String key,
+                              String stringValue,
+                              Double doubleValue,
+                              Long longValue,
+                              Boolean booleanValue,
+                              Object objectValue,
+                              List<Object> listValue,
+                              String id) {
         this.key = key;
         this.stringValue = stringValue;
         this.doubleValue = doubleValue;
@@ -150,6 +275,7 @@ public final class ImmutableProperty implements Property {
         this.booleanValue = booleanValue;
         this.objectValue = objectValue;
         this.listValue = listValue;
+        this.id = id;
     }
 
     /**
@@ -328,6 +454,64 @@ public final class ImmutableProperty implements Property {
     @Override
     public Boolean hasListValue() {
         return listValue != null;
+    }
+
+    /**
+     * Get the property unique id
+     *
+     * <p>
+     * The id should be unique across all properties whereas the key only needs to
+     * be unique within this entity
+     * </p>
+     *
+     * @return String id
+     */
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ImmutableProperty that = (ImmutableProperty) o;
+
+        if(!Objects.equals(getKey(), that.getKey()) || !Objects.equals(getType(), that.getType())) {
+            return false;
+        }
+        boolean match = false;
+
+        switch (getType()) {
+            case STRING:
+                match = Objects.equals(stringValue, that.stringValue);
+                break;
+            case LONG:
+                match = Objects.equals(longValue, that.longValue);
+                break;
+            case DOUBLE:
+                match = Objects.equals(doubleValue, that.doubleValue);
+                break;
+            case BOOLEAN:
+                match = Objects.equals(booleanValue, that.booleanValue);
+                break;
+            case OBJECT:
+                match = Objects.equals(objectValue, that.objectValue);
+                break;
+            case LIST:
+                match = Objects.equals(listValue, that.listValue);
+                break;
+            case NULL:
+                match = that.isNull();
+                break;
+        }
+
+        return match;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, key, stringValue, doubleValue, longValue, booleanValue, objectValue, listValue);
     }
 
     /**

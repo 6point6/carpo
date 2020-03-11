@@ -109,4 +109,5 @@ public interface PropertyCollection extends Collection<Property> {
      * @return list of object
      */
     <T> List<T> getListByKey(String key, Class<T> type);
+
 }

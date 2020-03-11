@@ -3,6 +3,8 @@ package net.sixpointsix.carpo.common.model;
 import net.sixpointsix.carpo.common.model.immutable.ImmutableTimestamp;
 import net.sixpointsix.carpo.common.model.mutable.MutablePropertyCollection;
 
+import java.util.UUID;
+
 /**
  * Parent for builder classes to make it easier to create entities
  * @param <T> entity class to be built
@@ -28,6 +30,24 @@ abstract public class AbstractPropertyEntityBuilder<T extends CarpoPropertyEntit
      */
     public void setCarpoId(String carpoId) {
         this.carpoId = carpoId;
+    }
+
+    /**
+     * Set the Id
+     *
+     * @param carpoId Carpo ID value
+     */
+    public void setCarpoId(UUID carpoId) {
+        if(carpoId != null) {
+            setCarpoId(carpoId.toString());
+        }
+    }
+
+    /**
+     * Set the ID to a random string
+     */
+    public void setRandomId() {
+        setCarpoId(UUID.randomUUID());
     }
 
     /**

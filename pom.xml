@@ -7,14 +7,24 @@
     <groupId>net.sixpointsix</groupId>
     <artifactId>carpo</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
 
 
     <modules>
         <module>carpo-parent</module>
+        <module>carpo-test</module>
         <module>carpo-common</module>
         <module>carpo-case-data</module>
+        <module>carpo-serialization</module>
+        <module>carpo-case-data-relational</module>
+        <module>carpo-mi</module>
+        <module>carpo-mi-spring-boot</module>
     </modules>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    </properties>
+
 
     <profiles>
         <profile>

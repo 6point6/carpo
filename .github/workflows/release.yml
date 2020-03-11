@@ -19,6 +19,10 @@ jobs:
           - carpo-parent
           - carpo-common
           - carpo-case-data
+          - carpo-case-data-relational
+          - carpo-mi
+          - carpo-mi-spring-boot
+          - carpo-serialization
 
     steps:
       - uses: actions/checkout@v2
@@ -32,8 +36,13 @@ jobs:
 
       - name: Copy GPG Private key
         run: echo "${{ secrets.gpg_private_key }}" > private-key.txt && gpg --import --no-tty --batch --yes private-key.txt
+      - name: 'Get Previous tag'
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@master"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       - name: Set version
-        run: mvn versions:set -DnewVersion=${GITHUB_REF} -f carpo-parent/pom.xml
+        run: mvn versions:set -DnewVersion=${{ steps.previoustag.outputs.tag }} -f carpo-parent/pom.xml
       - name: Build
         run: mvn -B clean install --file pom.xml
       - name: Deploy to Maven Central respository
@@ -55,7 +64,7 @@ jobs:
     needs: [build]
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Set up JDK 11
         uses: actions/setup-java@v1
         with:
@@ -74,16 +83,6 @@ jobs:
         id: createmilestone
         uses: "WyriHaximus/github-action-create-milestone@master"
         with:
-          title: ${{ steps.semvers.outputs.patch }}
+          title: ${{ steps.semvers.outputs.minor }}
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Set snaphot version
-        run: mvn versions:set -DnewVersion=${{ steps.semvers.outputs.patch }}-SNAPSHOT -f carpo-parent/pom.xml
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Auto update version number to ${{ steps.semvers.outputs.patch }}-SNAPSHOT
-          title: Auto update version number to ${{ steps.semvers.outputs.patch }}-SNAPSHOT
-          body: Auto update version number to ${{ steps.semvers.outputs.patch }}-SNAPSHOT
-          branch: create-pull-request/timestamp

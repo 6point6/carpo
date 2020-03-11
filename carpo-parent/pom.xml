@@ -21,17 +21,39 @@
         <maven.compiler.target>11</maven.compiler.target>
 
         <javadoc-plugin.version>3.1.1</javadoc-plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
 
         <!-- Dependency version       -->
         <slf4j.version>1.7.30</slf4j.version>
-        <jacoco.version>0.8.2</jacoco.version>
+        <jacoco.version>0.8.5</jacoco.version>
+        <commons3.version>3.9</commons3.version>
+        <guava.version>28.2-jre</guava.version>
+        <jdbi.version>3.12.0</jdbi.version>
+        <univocity-parser.vesion>2.8.4</univocity-parser.vesion>
+        <poi.version>4.1.2</poi.version>
+        <mockito.version>1.10.19</mockito.version>
+        <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
 
         <javadoc-plugin.version>3.1.1</javadoc-plugin.version>
         <deploy.version>2.8.2</deploy.version>
         <source-plugin.version>3.2.1</source-plugin.version>
 
+        <liquibase-version>3.8.7</liquibase-version>
+        <postgres.version>42.2.10</postgres.version>
+
         <!-- Test Versions   -->
         <junit.version>5.6.0</junit.version>
+        <surefire-plugin.version>2.22.2</surefire-plugin.version>
+        <h2.version>1.4.200</h2.version>
+
+        <!-- Test properties -->
+        <excludedTests>IT</excludedTests>
+        <runTests>*</runTests>
+        <jdbc.url>jdbc:h2:mem:carpo</jdbc.url>
+        <jdbc.username>sa</jdbc.username>
+        <jdbc.password>sa</jdbc.password>
+
     </properties>
 
     <dependencyManagement>
@@ -41,7 +63,44 @@
                 <artifactId>carpo-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>net.sixpointsix</groupId>
+                <artifactId>carpo-mi</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
+            <dependency>
+                <groupId>net.sixpointsix</groupId>
+                <artifactId>carpo-case-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jdbi</groupId>
+                <artifactId>jdbi3-bom</artifactId>
+                <type>pom</type>
+                <version>${jdbi.version}</version>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jdbi</groupId>
+                <artifactId>jdbi3-core</artifactId>
+                <version>${jdbi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jdbi</groupId>
+                <artifactId>jdbi3-sqlobject</artifactId>
+                <version>${jdbi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgres.version}</version>
+                <scope>runtime</scope>
+            </dependency>
 
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -49,6 +108,54 @@
                 <version>${slf4j.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons3.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-core</artifactId>
+                <version>${liquibase-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.univocity</groupId>
+                <artifactId>univocity-parsers</artifactId>
+                <version>${univocity-parser.vesion}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-autoconfigure</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
+                <version>${spring-boot.version}</version>
+                <optional>true</optional>
+            </dependency>
 
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
@@ -60,6 +167,39 @@
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-api</artifactId>
                 <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-params</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>net.sixpointsix</groupId>
+                <artifactId>carpo-test</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
@@ -84,6 +224,21 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${javadoc-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire-plugin.version}</version>
+                <configuration>
+                    <argLine>${surefireArgLine}</argLine>
+                    <excludedGroups>${excludedTests}</excludedGroups>
+                    <groups>${runTests}</groups>
+                    <systemProperties>
+                        <jdbcUrl>${jdbc.url}</jdbcUrl>
+                        <jdbcUsername>${jdbc.username}</jdbcUsername>
+                        <jdbcPassword>${jdbc.password}</jdbcPassword>
+                    </systemProperties>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -192,6 +347,9 @@
                                 <goals>
                                     <goal>prepare-agent</goal>
                                 </goals>
+                                <configuration>
+                                    <propertyName>surefireArgLine</propertyName>
+                                </configuration>
                             </execution>
                             <execution>
                                 <id>report</id>
@@ -199,6 +357,47 @@
                                 <goals>
                                     <goal>report</goal>
                                 </goals>
+                                <configuration>
+                                    <propertyName>surefireArgLine</propertyName>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>platform-mac</id>
+            <activation>
+                <os>
+                    <name>Mac OS X</name>
+                </os>
+                <jdk>11</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>${jacoco.version}</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                                <configuration>
+                                    <propertyName>surefireArgLine</propertyName>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>report</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                                <configuration>
+                                    <propertyName>surefireArgLine</propertyName>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
@@ -235,6 +434,7 @@
         <developer>
             <name>Andrew Tarry</name>
             <email>andrew.tarry@6point6.co.uk</email>
+            <url>https://github.com/andrewtarry</url>
         </developer>
     </developers>
 </project>

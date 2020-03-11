@@ -8,6 +8,16 @@ core:
 
 case-data:
   - carpo-case-data/**/*
+  - carpo-case-data-relational/**/*
 
 pipeline:
   - .github/**/*
+
+serialization:
+  - carpo-serialization/**/*
+
+mi:
+  - carpo-mi/**/*
+
+database:
+  - carpo-case-data-relational/**/*
