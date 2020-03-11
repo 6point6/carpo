@@ -30,6 +30,16 @@
         </dependency>
 
         <dependency>
+            <groupId>net.sixpointsix</groupId>
+            <artifactId>carpo-relational-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sixpointsix</groupId>
+            <artifactId>carpo-case-data</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.jdbi</groupId>
             <artifactId>jdbi3-core</artifactId>
         </dependency>
@@ -58,6 +68,10 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
     </dependencies>
 

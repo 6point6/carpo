@@ -1,0 +1,40 @@
+group PropertyDao;
+
+insert(propertyTableName) ::= <<
+INSERT INTO <propertyTableName>(id, property_key, string_value, long_value, double_value, boolean_value, null_value, property_type, carpo_entity_id)
+VALUES (:p.getId,
+        :p.getKey,
+        :p.getStringValue,
+        :p.getLongValue,
+        :p.getDoubleValue,
+        :p.getBooleanValue,
+        :p.isNull,
+        :p.getType,
+        :entityId)
+>>
+
+selectByKey(propertyTableName) ::= <<
+SELECT p.id p_id,
+       p.property_key p_property_key,
+       p.string_value p_string_value,
+       p.long_value p_long_value,
+       p.double_value p_double_value,
+       p.boolean_value p_boolean_value,
+       p.null_value p_null_value,
+       p.property_type p_property_type
+FROM <propertyTableName> p
+WHERE p.property_key = :propertyKey
+AND p.carpo_entity_id = :entityId
+>>
+
+
+updateProperty(propertyTableName) ::= <<
+UPDATE <propertyTableName>
+SET string_value = :p.getStringValue,
+    long_value = :p.getLongValue,
+    double_value = :p.getDoubleValue,
+    boolean_value = :p.getBooleanValue,
+    null_value = :p.isNull,
+    property_type = :p.getType
+WHERE id = :p.getId
+>>

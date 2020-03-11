@@ -87,4 +87,14 @@ class AbstractPropertyEntityBuilderTest {
         assertNotNull(exampleEntity.getTimestamp());
         assertFalse(exampleEntity.getProperties().isEmpty());
     }
+
+    @Test
+    void buildWithWithName() {
+        ExampleBuilder builder = new ExampleBuilder();
+        builder.setName("x");
+
+        ExampleEntity exampleEntity = builder.build();
+
+        assertEquals("x", exampleEntity.getProperties().getStringByKey(StandardProperties.NAME).get());
+    }
 }

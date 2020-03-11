@@ -89,3 +89,37 @@ jobs:
           java-version: ${{ matrix.java }}
       - name: Test with Maven
         run: mvn -B clean test --file pom.xml -DexcludedTests="" -DrunTests=IT -DjdbcUrl="jdbc:postgresql://localhost:${{ job.services.postgres.ports[5432] }}/postgres" -DjdbcUsername=postgres -DjdbcPassword=postgres
+
+#  integration-mysql:
+#
+#    runs-on: ubuntu-latest
+#
+#    needs:
+#      - test
+#
+#    strategy:
+#      matrix:
+#        java:
+#          - 11
+#          - 12
+#          - 13
+#
+#    services:
+#      mysql:
+#        image: mysql:8
+#        env:
+#          MYSQL_USER: carpo
+#          MYSQL_PASSWORD: carpo
+#          MYSQL_DATABASE: carpo
+#        ports:
+#          - 3306/tcp
+#        options: --health-cmd /usr/bin/mysql --user=carpo --password=carpo --execute \"SHOW DATABASES;\"
+#
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Set up JDK ${{ matrix.java }} on ${{ matrix.os }}
+#        uses: actions/setup-java@v1
+#        with:
+#          java-version: ${{ matrix.java }}
+#      - name: Test with Maven
+#        run: mvn -B clean test --file pom.xml -DexcludedTests="" -DrunTests=IT -DjdbcUrl="jdbc:mysql://localhost:${{ job.services.mysql.ports[3306] }}/carpo" -DjdbcUsername=carpo -DjdbcPassword=carpo

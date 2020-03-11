@@ -1,5 +1,6 @@
 package net.sixpointsix.carpo.common.model;
 
+import net.sixpointsix.carpo.common.model.immutable.ImmutableProperty;
 import net.sixpointsix.carpo.common.model.immutable.ImmutableTimestamp;
 import net.sixpointsix.carpo.common.model.mutable.MutablePropertyCollection;
 
@@ -22,6 +23,17 @@ abstract public class AbstractPropertyEntityBuilder<T extends CarpoPropertyEntit
      * @return entity
      */
     public abstract T build();
+
+    public AbstractPropertyEntityBuilder() {
+    }
+
+    public AbstractPropertyEntityBuilder(CarpoPropertyEntity entity) {
+        setCarpoId(entity.getCarpoId());
+        setTimestamp(entity.getTimestamp());
+        properties = entity.getProperties();
+    }
+
+
 
     /**
      * Set the Id
@@ -73,5 +85,13 @@ abstract public class AbstractPropertyEntityBuilder<T extends CarpoPropertyEntit
      */
     public void addProperty(Property property) {
         this.properties.add(property);
+    }
+
+    /**
+     * Set the name property of the entity
+     * @param name name
+     */
+    public void setName(String name) {
+        addProperty(ImmutableProperty.build(StandardProperties.NAME, name));
     }
 }

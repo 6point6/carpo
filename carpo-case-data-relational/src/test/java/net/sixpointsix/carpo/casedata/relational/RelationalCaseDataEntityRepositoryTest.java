@@ -24,7 +24,7 @@ class RelationalCaseDataEntityRepositoryTest {
 
     @BeforeEach
     void setUp(Jdbi jdbi) {
-        relationalCaseDataEntityRepository = new RelationalCaseDataEntityRepository(jdbi);
+        relationalCaseDataEntityRepository = RelationalCaseDataEntityRepository.build(jdbi);
     }
 
     @Test
