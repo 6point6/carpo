@@ -16,9 +16,13 @@
         <module>carpo-common</module>
         <module>carpo-case-data</module>
         <module>carpo-serialization</module>
+        <module>carpo-relational-common</module>
         <module>carpo-case-data-relational</module>
         <module>carpo-mi</module>
         <module>carpo-mi-spring-boot</module>
+        <module>carpo-finance</module>
+        <module>carpo-finance-relational</module>
+
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,25 +1,40 @@
 package net.sixpointsix.carpo.casedata.relational;
 
 import net.sixpointsix.carpo.casedata.model.CarpoCase;
-import net.sixpointsix.carpo.casedata.relational.jdbi.CaseDataDao;
-import net.sixpointsix.carpo.casedata.relational.jdbi.PropertyDao;
-import net.sixpointsix.carpo.casedata.relational.jdbi.model.PropertyWrapper;
+import net.sixpointsix.carpo.casedata.model.builder.CarpoCaseBuilder;
 import net.sixpointsix.carpo.casedata.repository.CaseDataEntityRepository;
-import net.sixpointsix.carpo.common.model.Property;
+import net.sixpointsix.carpo.common.model.CarpoPropertyEntity;
+import net.sixpointsix.carpo.relational.JdbiRelationalManager;
+import net.sixpointsix.carpo.relational.MutableRelationalConfiguration;
 import org.jdbi.v3.core.Jdbi;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
  * Case data repository using a relational database
+ *
+ * @author Andrew Tarry
+ * @since 0.3.0
  */
 public class RelationalCaseDataEntityRepository implements CaseDataEntityRepository {
 
-    private final Jdbi jdbi;
+    private final JdbiRelationalManager jdbiRelationalManager;
 
-    public RelationalCaseDataEntityRepository(Jdbi jdbi) {
-        this.jdbi = jdbi;
+    /**
+     * Build the repository from JDBI
+     * @param jdbi jdbi instance
+     * @return repository
+     */
+    public static RelationalCaseDataEntityRepository build(Jdbi jdbi) {
+        MutableRelationalConfiguration relationalConfiguration = new MutableRelationalConfiguration();
+        relationalConfiguration.setPropertyTable("carpo_case_property");
+        relationalConfiguration.setEntityDataTable("carpo_case");
+
+        return new RelationalCaseDataEntityRepository(new JdbiRelationalManager(jdbi, relationalConfiguration));
+    }
+
+    public RelationalCaseDataEntityRepository(JdbiRelationalManager jdbiRelationalManager) {
+        this.jdbiRelationalManager = jdbiRelationalManager;
     }
 
     /**
@@ -29,9 +44,7 @@ public class RelationalCaseDataEntityRepository implements CaseDataEntityReposit
      */
     @Override
     public void create(CarpoCase entity) {
-        jdbi.useExtension(CaseDataDao.class, h -> h.insertCaseData(entity.getCarpoId(), entity.getTimestamp().getCreatedAt(), entity.getTimestamp().getLastUpdated()));
-        entity.getProperties()
-                .forEach(p -> insertProperty(p, entity));
+        jdbiRelationalManager.create(entity);
     }
 
     /**
@@ -41,23 +54,7 @@ public class RelationalCaseDataEntityRepository implements CaseDataEntityReposit
      */
     @Override
     public void update(CarpoCase entity) {
-        jdbi.useExtension(CaseDataDao.class, h -> h.updateCase(entity.getCarpoId(), LocalDateTime.now()));
-        entity
-                .getProperties()
-                .parallelStream()
-                .forEach(p -> {
-                    Optional<Property> existingPropertyOptional = jdbi.withExtension(PropertyDao.class, h -> h.selectByKey(entity.getCarpoId(), p.getKey()));
-
-                    if(existingPropertyOptional.isPresent()) {
-                        final Property existingProperty = existingPropertyOptional.get();
-
-                        if(!existingProperty.equals(p)) {
-                            jdbi.useExtension(PropertyDao.class, h -> h.updateProperty(p));
-                        }
-                    } else {
-                        insertProperty(p, entity);
-                    }
-                });
+        jdbiRelationalManager.update(entity);
     }
 
     /**
@@ -78,16 +75,8 @@ public class RelationalCaseDataEntityRepository implements CaseDataEntityReposit
      */
     @Override
     public Optional<CarpoCase> getById(String id) {
-        return jdbi.withExtension(CaseDataDao.class, h -> h.selectById(id));
-    }
+        Optional<CarpoPropertyEntity> entity = jdbiRelationalManager.getById(id);
 
-    /**
-     * Insert a property into the database
-     * @param property to be inserted
-     * @param carpoCase case that owns the property
-     */
-    private void insertProperty(Property property, CarpoCase carpoCase) {
-        PropertyWrapper wrapper = new PropertyWrapper(property);
-        jdbi.useExtension(PropertyDao.class, h -> h.insert(wrapper, carpoCase.getCarpoId()));
+        return entity.map(c -> new CarpoCaseBuilder(c).build());
     }
 }

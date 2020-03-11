@@ -19,10 +19,13 @@ jobs:
           - carpo-parent
           - carpo-common
           - carpo-case-data
+          - carpo-relational-common
           - carpo-case-data-relational
           - carpo-mi
           - carpo-mi-spring-boot
           - carpo-serialization
+          - carpo-finance
+          - carpo-finance-relational
 
     steps:
       - uses: actions/checkout@v2
