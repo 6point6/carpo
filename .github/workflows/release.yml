@@ -37,8 +37,6 @@ jobs:
           server-username: MAVEN_NEXUS_USER       # env variable for username in deploy
           server-password: MAVEN_NEXUS_PASSWORD   # env variable for token in deploy
 
-      - name: Copy GPG Private key
-        run: echo "${{ secrets.gpg_private_key }}" > private-key.txt && gpg --import --no-tty --batch --yes private-key.txt
       - name: 'Get Previous tag'
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -48,13 +46,14 @@ jobs:
         run: mvn versions:set -DnewVersion=${{ steps.previoustag.outputs.tag }} -f carpo-parent/pom.xml
       - name: Build
         run: mvn -B clean install --file pom.xml
-      - name: Deploy to Maven Central respository
-        env:
-          MAVEN_NEXUS_USER: ${{ secrets.nexus_username }}
-          MAVEN_NEXUS_PASSWORD: ${{ secrets.nexus_password }}
-        run: |
-          cd ${{ matrix.module }}
-          mvn deploy -Dgpg.passphrase=${{ secrets.gpg_passphrase }} -DskipTests -P deploy
+      - name: Deploy carpo-parent
+        uses: ./.github/actions/deploy
+        with:
+          module-dir: ${{ matrix.module }}
+          gpg-passphrase: ${{ secrets.gpg_passphrase }}
+          gpg-private-key: ${{ secrets.gpg_private_key }}
+          maven-user: ${{ secrets.nexus_username }}
+          maven-password: ${{ secrets.nexus_password }}
       - uses: actions/upload-artifact@v1
         with:
           name: ${{ matrix.module }}
