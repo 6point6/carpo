@@ -22,6 +22,7 @@
         <module>carpo-mi-spring-boot</module>
         <module>carpo-finance</module>
         <module>carpo-finance-relational</module>
+        <module>carpo-common-jackson</module>
 
     </modules>
     <properties>

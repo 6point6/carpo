@@ -18,6 +18,7 @@ jobs:
         module:
           - carpo-parent
           - carpo-common
+          - carpo-common-jackson
           - carpo-case-data
           - carpo-relational-common
           - carpo-case-data-relational
@@ -46,14 +47,15 @@ jobs:
         run: mvn versions:set -DnewVersion=${{ steps.previoustag.outputs.tag }} -f carpo-parent/pom.xml
       - name: Build
         run: mvn -B clean install --file pom.xml
-      - name: Deploy carpo-parent
-        uses: ./.github/actions/deploy
+      - name: Release Maven package
+        uses: samuelmeuli/action-maven-publish@v1
         with:
-          module-dir: ${{ matrix.module }}
-          gpg-passphrase: ${{ secrets.gpg_passphrase }}
-          gpg-private-key: ${{ secrets.gpg_private_key }}
-          maven-user: ${{ secrets.nexus_username }}
-          maven-password: ${{ secrets.nexus_password }}
+          directory: ${{ matrix.module }}
+          maven_goals_phases: deploy
+          gpg_private_key: ${{ secrets.gpg_private_key }}
+          gpg_passphrase: ${{ secrets.gpg_passphrase }}
+          nexus_username: ${{ secrets.nexus_username }}
+          nexus_password: ${{ secrets.nexus_password }}
       - uses: actions/upload-artifact@v1
         with:
           name: ${{ matrix.module }}
