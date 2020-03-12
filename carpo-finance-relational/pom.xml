@@ -5,7 +5,7 @@
     <parent>
         <artifactId>carpo-parent</artifactId>
         <groupId>net.sixpointsix</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.4.5</version>
         <relativePath>../carpo-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
