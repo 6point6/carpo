@@ -52,10 +52,11 @@ class RelationalExpenseTypeRepositoryTest {
     }
 
     @Test
-    void updateWithoutPropertyChange() {
+    void updateWithoutPropertyChange() throws InterruptedException {
         ExpenseType expenseType = getType();
         relationalExpenseTypeRepository.create(expenseType);
 
+        Thread.sleep(500);
         relationalExpenseTypeRepository.update(expenseType);
 
         Optional<ExpenseType> saved = relationalExpenseTypeRepository.getById(expenseType.getCarpoId());
@@ -64,10 +65,10 @@ class RelationalExpenseTypeRepositoryTest {
     }
 
     @Test
-    void updateWithNewProperty() {
+    void updateWithNewProperty() throws InterruptedException {
         ExpenseType expenseType = getType();
         relationalExpenseTypeRepository.create(expenseType);
-
+        Thread.sleep(500);
         expenseType.getProperties().add(ImmutableProperty.build("x", "y"));
 
         relationalExpenseTypeRepository.update(expenseType);
@@ -79,10 +80,10 @@ class RelationalExpenseTypeRepositoryTest {
     }
 
     @Test
-    void updateWithPropertyChange() {
+    void updateWithPropertyChange() throws InterruptedException {
         ExpenseType expenseType = getType();
         relationalExpenseTypeRepository.create(expenseType);
-
+        Thread.sleep(500);
         expenseType.getProperties().add(ImmutableProperty.build("b", "y"));
 
         relationalExpenseTypeRepository.update(expenseType);

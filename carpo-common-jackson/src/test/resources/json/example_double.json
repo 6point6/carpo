@@ -1,0 +1,14 @@
+{
+  "carpoId": "1234",
+  "timestamp": {
+    "createdAt": "2020-01-01T12:01:24",
+    "lastUpdated": "2020-01-01T12:01:24"
+  },
+  "properties": [
+    {
+      "key": "a",
+      "value": 100.5,
+      "type": "DOUBLE"
+    }
+  ]
+}
