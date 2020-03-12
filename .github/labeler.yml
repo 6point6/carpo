@@ -3,6 +3,7 @@ docs:
 
 core:
   - carpo-common/**/*
+  - carpo-common-jackson/**/*
   - carpo-parent/**/*
   - ./*
 
