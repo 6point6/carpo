@@ -12,14 +12,14 @@ import java.lang.annotation.*;
  * </p>
  *
  * <code>
- *         @RequiredProperties(
+ *         &#64;RequiredProperties(
  *             required = {
- *                     @RequiredProperty(key = "a", propertyType = PropertyType.STRING),
- *                     @RequiredProperty(key = "c", propertyType = PropertyType.STRING)
+ *                     &#64;RequiredProperty(key = "a", propertyType = PropertyType.STRING),
+ *                     &#64;RequiredProperty(key = "c", propertyType = PropertyType.STRING)
  *             },
  *             allowUnknown = false
  *     )
- *     private static class KnownProperty implements PropertyHoldingEntity
+ *     public class KnownProperty implements PropertyHoldingEntity {}
  * </code>
  *
  * @author Andrew Tarry
@@ -41,10 +41,10 @@ public @interface RequiredProperties {
      * Set of annotations for each property
      *
      * <code>
-     *         @RequiredProperties(
+     *         &#64;RequiredProperties(
      *             required = {
-     *                     @RequiredProperty(key = "a", propertyType = PropertyType.STRING),
-     *                     @RequiredProperty(key = "c", propertyType = PropertyType.STRING)
+     *                     &#64;RequiredProperty(key = "a", propertyType = PropertyType.STRING),
+     *                     &#64;RequiredProperty(key = "c", propertyType = PropertyType.STRING)
      *             }
      *     )
      * </code>

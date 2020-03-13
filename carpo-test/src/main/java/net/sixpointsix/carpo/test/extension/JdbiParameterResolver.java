@@ -2,7 +2,6 @@ package net.sixpointsix.carpo.test.extension;
 
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
-import org.jdbi.v3.stringtemplate4.StringTemplateEngine;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
@@ -10,8 +9,12 @@ import org.junit.jupiter.api.extension.ParameterResolver;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.sql.SQLException;
 
+/**
+ * Manage the JDBI connection within a test
+ */
 public class JdbiParameterResolver implements ParameterResolver {
     /**
      * Determine if this resolver supports resolution of an argument for the
