@@ -2,6 +2,7 @@ package net.sixpointsix.carpo.common.repository;
 
 import net.sixpointsix.carpo.common.model.CarpoEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -40,4 +41,18 @@ public interface CrudEntityRepository<E extends CarpoEntity> {
      * @return entity data
      */
     Optional<E> getById(String id);
+
+    /**
+     * Search for the data and return the matching values
+     *
+     * <p>
+     *     Search is a complex area and so this interface will simply offer a high level api that can implemented as
+     *     needed
+     * </p>
+     *
+     * @param selectProperties select properties
+     * @return list of data
+     */
+    List<E> searchByProperties(SelectProperties selectProperties);
+
 }

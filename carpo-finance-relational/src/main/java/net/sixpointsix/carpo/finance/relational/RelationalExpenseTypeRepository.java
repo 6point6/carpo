@@ -1,10 +1,12 @@
 package net.sixpointsix.carpo.finance.relational;
 
+import net.sixpointsix.carpo.common.repository.SelectProperties;
 import net.sixpointsix.carpo.finance.model.ExpenseType;
 import net.sixpointsix.carpo.finance.model.builder.ExpenseTypeBuilder;
 import net.sixpointsix.carpo.finance.repository.ExpenseTypeRepository;
 import net.sixpointsix.carpo.relational.JdbiRelationalManager;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -61,5 +63,21 @@ public class RelationalExpenseTypeRepository implements ExpenseTypeRepository {
         return jdbiRelationalManager
                 .getById(id)
                 .map(c -> new ExpenseTypeBuilder(c).build());
+    }
+
+    /**
+     * Search for the data and return the matching values
+     *
+     * <p>
+     * Search is a complex area and so this interface will simply offer a high level api that can implemented as
+     * needed
+     * </p>
+     *
+     * @param selectProperties select properties
+     * @return list of data
+     */
+    @Override
+    public List<ExpenseType> searchByProperties(SelectProperties selectProperties) {
+        return null;
     }
 }
