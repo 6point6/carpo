@@ -14,5 +14,6 @@ public enum PropertyType {
     DOUBLE,
     BOOLEAN,
     OBJECT,
-    LIST
+    LIST,
+    UNKNOWN
 }
