@@ -46,9 +46,11 @@ class JdbiRelationalManagerTest {
     }
 
     @Test
-    void insert() {
+    void insert() throws InterruptedException {
         CarpoCase carpoCase = getCase();
         jdbiRelationalManager.create(carpoCase);
+
+        Thread.sleep(500);
 
         Optional<CarpoPropertyEntity> saved = jdbiRelationalManager.getById(carpoCase.getCarpoId());
 
@@ -76,9 +78,11 @@ class JdbiRelationalManagerTest {
     }
 
     @Test
-    void updateWithNewProperty() {
+    void updateWithNewProperty() throws InterruptedException {
         CarpoCase carpoCase = getCase();
         jdbiRelationalManager.create(carpoCase);
+
+        Thread.sleep(500);
 
         carpoCase.getProperties().add(ImmutableProperty.build("x", "y"));
 
@@ -91,10 +95,11 @@ class JdbiRelationalManagerTest {
     }
 
     @Test
-    void updateWithPropertyChange() {
+    void updateWithPropertyChange() throws InterruptedException {
         CarpoCase carpoCase = getCase();
         jdbiRelationalManager.create(carpoCase);
 
+        Thread.sleep(500);
         carpoCase.getProperties().add(ImmutableProperty.build("b", "y"));
 
         jdbiRelationalManager.update(carpoCase);
