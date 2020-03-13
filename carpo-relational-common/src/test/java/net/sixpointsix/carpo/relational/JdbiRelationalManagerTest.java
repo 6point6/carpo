@@ -66,10 +66,11 @@ class JdbiRelationalManagerTest {
     }
 
     @Test
-    void updateWithoutPropertyChange() {
+    void updateWithoutPropertyChange() throws InterruptedException {
         CarpoCase carpoCase = getCase();
         jdbiRelationalManager.create(carpoCase);
 
+        Thread.sleep(500);
         jdbiRelationalManager.update(carpoCase);
 
         Optional<CarpoPropertyEntity> saved = jdbiRelationalManager.getById(carpoCase.getCarpoId());
