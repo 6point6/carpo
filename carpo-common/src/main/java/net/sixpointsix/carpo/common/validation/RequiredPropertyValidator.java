@@ -3,6 +3,8 @@ package net.sixpointsix.carpo.common.validation;
 import net.sixpointsix.carpo.common.model.Property;
 import net.sixpointsix.carpo.common.model.PropertyHoldingEntity;
 import net.sixpointsix.carpo.common.model.PropertyType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
  */
 public class RequiredPropertyValidator implements ConstraintValidator<RequiredProperties, PropertyHoldingEntity> {
 
+    private static final Logger logger = LoggerFactory.getLogger(RequiredPropertyValidator.class);
     private List<RequiredProperty> requiredPropertyList;
     private boolean allowUnknown;
 
@@ -49,11 +52,16 @@ public class RequiredPropertyValidator implements ConstraintValidator<RequiredPr
             Optional<Property> propertyOptional = entity.getProperties().getByKey(key);
 
             if(propertyOptional.isEmpty()) {
-                constraintValidatorContext.buildConstraintViolationWithTemplate("{carpo.property_not_found}").addConstraintViolation();
+                logger.warn("Property {} not found", key);
+                constraintValidatorContext
+                        .buildConstraintViolationWithTemplate("{carpo.property_not_found}")
+                        .addConstraintViolation();
                 return false;
             }
 
-            if(!validType(requiredProperty.propertyType(), propertyOptional.get())) {
+            Property property = propertyOptional.get();
+            if(!validType(requiredProperty.propertyType(), property)) {
+                logger.warn("Property {} was {} but {} was expected", key, property.getType(), requiredProperty.propertyType());
                 constraintValidatorContext.buildConstraintViolationWithTemplate("{carpo.type_invalid}").addConstraintViolation();
                 return false;
             }

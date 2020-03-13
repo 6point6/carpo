@@ -8,6 +8,7 @@ import net.sixpointsix.carpo.common.model.mutable.MutablePropertyCollection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -164,6 +165,14 @@ class RequiredPropertyValidatorTest {
         Set<ConstraintViolation<PropertyHoldingEntity>> violationSet = validator.validate(new KnownProperty());
 
         assertTrue(violationSet.isEmpty());
+    }
+
+    private ConstraintViolation<PropertyHoldingEntity> getFirst(Set<ConstraintViolation<PropertyHoldingEntity>> violations) {
+        for (ConstraintViolation<PropertyHoldingEntity> c: violations) {
+            return c;
+        }
+
+        return null;
     }
 
 }

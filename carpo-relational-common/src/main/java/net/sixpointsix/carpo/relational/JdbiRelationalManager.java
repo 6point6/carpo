@@ -1,5 +1,7 @@
 package net.sixpointsix.carpo.relational;
 
+import net.sixpointsix.carpo.common.model.util.PropertyUtil;
+import net.sixpointsix.carpo.common.repository.SelectProperties;
 import net.sixpointsix.carpo.relational.jdbi.PropertyDao;
 import net.sixpointsix.carpo.relational.jdbi.model.PropertyWrapper;
 import net.sixpointsix.carpo.common.model.CarpoEntity;
@@ -11,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Relational data manager using jdbi
@@ -82,6 +84,56 @@ public class JdbiRelationalManager {
                 relationalConfiguration.getEntityDataTable(),
                 relationalConfiguration.getPropertyTable(),
                 id));
+    }
+
+    public List<CarpoPropertyEntity> getBySelectProperties(SelectProperties selectProperties) {
+        boolean searchByValue = !selectProperties.getSearchProperties().isEmpty();
+        Map<String, Object> searchParams = new HashMap<>();
+        List<String> whereClause = new ArrayList<>();
+
+        if(searchByValue) {
+            selectProperties
+                    .getSearchProperties()
+                    .forEach(p -> {
+                        StringBuilder where = new StringBuilder();
+                        searchParams.put("key_" + p.getKey(), p.getKey());
+                        searchParams.put("value_" + p.getKey(), PropertyUtil.getValue(p));
+                        where
+                                .append("(p.property_key = :v.key_")
+                                .append(p.getKey())
+                                .append(" AND ");
+
+                        switch (p.getType()) {
+                            case STRING:
+                                where.append("p.string_value");
+                                break;
+                            case LONG:
+                                where.append("p.long_value");
+                                break;
+                            case DOUBLE:
+                                where.append("p.double_value");
+                                break;
+                            case BOOLEAN:
+                                where.append("p.boolean_value");
+                                break;
+                        }
+
+                        where.append(" = :v.value_")
+                                .append(p.getKey())
+                                .append(")");
+
+                        whereClause.add(where.toString());
+                    });
+        }
+
+        return jdbi.withExtension(EntityDao.class, h -> h.selectWithProperties(
+                relationalConfiguration.getEntityDataTable(),
+                relationalConfiguration.getPropertyTable(),
+                searchByValue,
+                selectProperties,
+                searchParams,
+                String.join(" OR ", whereClause)
+        ));
     }
 
     /**

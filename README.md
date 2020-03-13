@@ -2,6 +2,8 @@
 
 ![Master build](https://github.com/6point6/carpo/workflows/Master%20build/badge.svg?branch=master)
 [![Documentation Status](https://readthedocs.org/projects/carpo/badge/?version=latest)](https://carpo.readthedocs.io/en/latest/?badge=latest)
+[![Maven Central](https://img.shields.io/maven-central/v/net.sixpointsix/carpo-parent.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22net.sixpointsix%22%20AND%20a:%22carpo-parent%22)
+[![javadoc](https://javadoc.io/badge2/net.sixpointsix/carpo-common/javadoc.svg)](https://javadoc.io/doc/net.sixpointsix/carpo-common)
 
 ## What is Carpo?
 

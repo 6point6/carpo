@@ -22,6 +22,32 @@ LEFT JOIN <propertyTableName> p on c.id = p.carpo_entity_id
 WHERE c.id = :id
 >>
 
+selectWithProperties(tableName, propertyTableName, selectByProps, where) ::= <<
+SELECT c.id c_id,
+    c.created_at c_created_at,
+    c.last_updated c_last_updated,
+    p.id p_id,
+    p.property_key p_property_key,
+    p.string_value p_string_value,
+    p.long_value p_long_value,
+    p.double_value p_double_value,
+    p.boolean_value p_boolean_value,
+    p.null_value p_null_value,
+    p.property_type p_property_type
+FROM <tableName> c
+LEFT JOIN <propertyTableName> p on c.id = p.carpo_entity_id
+WHERE c.id IN (
+    SELECT DISTINCT c.id
+    FROM <tableName> c
+    LEFT JOIN <propertyTableName> p on c.id = p.carpo_entity_id
+    <if(selectByProps)>
+    WHERE <where>
+    <endif>
+    LIMIT :p.length
+    OFFSET :p.offset
+    )
+>>
+
 update(tableName) ::=<<
 UPDATE <tableName>
 SET last_updated = :lastUpdated

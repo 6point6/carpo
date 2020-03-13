@@ -4,11 +4,14 @@ import net.sixpointsix.carpo.casedata.model.CarpoCase;
 import net.sixpointsix.carpo.casedata.model.builder.CarpoCaseBuilder;
 import net.sixpointsix.carpo.casedata.repository.CaseDataEntityRepository;
 import net.sixpointsix.carpo.common.model.CarpoPropertyEntity;
+import net.sixpointsix.carpo.common.repository.SelectProperties;
 import net.sixpointsix.carpo.relational.JdbiRelationalManager;
 import net.sixpointsix.carpo.relational.MutableRelationalConfiguration;
 import org.jdbi.v3.core.Jdbi;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Case data repository using a relational database
@@ -77,6 +80,30 @@ public class RelationalCaseDataEntityRepository implements CaseDataEntityReposit
     public Optional<CarpoCase> getById(String id) {
         Optional<CarpoPropertyEntity> entity = jdbiRelationalManager.getById(id);
 
-        return entity.map(c -> new CarpoCaseBuilder(c).build());
+        return entity.map(this::toCase);
+    }
+
+    /**
+     * Search for the data and return the matching values
+     *
+     * <p>
+     * Search is a complex area and so this interface will simply offer a high level api that can implemented as
+     * needed
+     * </p>
+     *
+     * @param selectProperties select properties
+     * @return list of data
+     */
+    @Override
+    public List<CarpoCase> searchByProperties(SelectProperties selectProperties) {
+        return jdbiRelationalManager
+                .getBySelectProperties(selectProperties)
+                .stream()
+                .map(this::toCase)
+                .collect(Collectors.toList());
+    }
+
+    private CarpoCase toCase(CarpoPropertyEntity entity) {
+        return new CarpoCaseBuilder(entity).build();
     }
 }
