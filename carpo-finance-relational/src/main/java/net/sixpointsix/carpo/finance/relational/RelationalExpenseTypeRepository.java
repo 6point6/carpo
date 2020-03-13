@@ -1,5 +1,6 @@
 package net.sixpointsix.carpo.finance.relational;
 
+import net.sixpointsix.carpo.common.model.CarpoPropertyEntity;
 import net.sixpointsix.carpo.common.repository.SelectProperties;
 import net.sixpointsix.carpo.finance.model.ExpenseType;
 import net.sixpointsix.carpo.finance.model.builder.ExpenseTypeBuilder;
@@ -8,6 +9,7 @@ import net.sixpointsix.carpo.relational.JdbiRelationalManager;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Manage data for expense types
@@ -62,7 +64,7 @@ public class RelationalExpenseTypeRepository implements ExpenseTypeRepository {
     public Optional<ExpenseType> getById(String id) {
         return jdbiRelationalManager
                 .getById(id)
-                .map(c -> new ExpenseTypeBuilder(c).build());
+                .map(this::toExpenseType);
     }
 
     /**
@@ -78,6 +80,14 @@ public class RelationalExpenseTypeRepository implements ExpenseTypeRepository {
      */
     @Override
     public List<ExpenseType> searchByProperties(SelectProperties selectProperties) {
-        return null;
+        return jdbiRelationalManager
+                .getBySelectProperties(selectProperties)
+                .stream()
+                .map(this::toExpenseType)
+                .collect(Collectors.toList());
+    }
+
+    private ExpenseType toExpenseType(CarpoPropertyEntity entity) {
+        return new ExpenseTypeBuilder(entity).build();
     }
 }
