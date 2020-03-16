@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Validate entities
@@ -34,9 +35,14 @@ public class DirectValidationManager implements ValidationManager {
     public void validate(CarpoPropertyEntity entity) {
         Set<ConstraintViolation<CarpoPropertyEntity>> constraints = validator.validate(entity);
 
-        if(!constraints.isEmpty()) {
-            constraints.forEach(c -> logger.error("Invalid {}", c.getMessage()));
-            throw new RuntimeException();
+        if(constraints != null && !constraints.isEmpty()) {
+            constraints.forEach(c -> {
+                if(c.getMessage() != null) {
+                    logger.error("Invalid {}", c.getMessage());
+                }
+            });
+
+            throw new PropertyValidationException("Invalid property", constraints.stream().map(ConstraintViolation::getMessage).collect(Collectors.toSet()));
         }
     }
 }

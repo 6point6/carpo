@@ -1,6 +1,5 @@
 package net.sixpointsix.carpo.common.exception;
 
-import javax.validation.ConstraintViolation;
 import java.util.Set;
 
 /**
@@ -11,14 +10,14 @@ import java.util.Set;
  */
 public class PropertyValidationException extends CarpoException {
 
-    private final Set<ConstraintViolation<?>> violationSet;
+    private final Set<String> violationSet;
 
-    public PropertyValidationException(String message, Set<ConstraintViolation<?>> violationSet) {
+    public PropertyValidationException(String message, Set<String> violationSet) {
         super(message);
         this.violationSet = violationSet;
     }
 
-    public Set<ConstraintViolation<?>> getViolationSet() {
+    public Set<String> getViolationSet() {
         return violationSet;
     }
 }
