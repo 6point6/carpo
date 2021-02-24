@@ -2,6 +2,7 @@ package net.sixpointsix.carpo.common.model.immutable;
 
 import net.sixpointsix.carpo.common.model.Property;
 import net.sixpointsix.carpo.common.model.PropertyType;
+import net.sixpointsix.carpo.common.model.PropertyCollection;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -170,6 +171,34 @@ class ImmutablePropertyTest {
         assertFalse(property.getDoubleValue().isPresent());
         assertFalse(property.getLongValue().isPresent());
         assertFalse(property.getBooleanValue().isPresent());
+    }
+
+    @Test
+    void propertyValue() {
+        Example value = new Example(10);
+        Property secondaryProperty = ImmutableProperty.build("b", value);
+        Property primaryProperty = ImmutableProperty.build("a", secondaryProperty);
+
+        assertEquals("a", primaryProperty.getKey());
+        assertTrue(primaryProperty.getObjectValue(PropertyCollection.class).isPresent());
+
+        PropertyCollection expectedPropertyCollection = primaryProperty.getObjectValue(PropertyCollection.class).get();
+        Property expectedProperty = expectedPropertyCollection.getByKey("b").get();
+        assertEquals(secondaryProperty, expectedProperty);
+
+        assertFalse(primaryProperty.hasStringValue());
+        assertFalse(primaryProperty.hasDoubleValue());
+        assertFalse(primaryProperty.hasLongValue());
+        assertFalse(primaryProperty.hasBooleanValue());
+        assertFalse(primaryProperty.hasListValue());
+        assertTrue(primaryProperty.hasObjectValue());
+
+        assertFalse(primaryProperty.isNull());
+
+        assertFalse(primaryProperty.getStringValue().isPresent());
+        assertFalse(primaryProperty.getDoubleValue().isPresent());
+        assertFalse(primaryProperty.getLongValue().isPresent());
+        assertFalse(primaryProperty.getBooleanValue().isPresent());
     }
 
     @Test

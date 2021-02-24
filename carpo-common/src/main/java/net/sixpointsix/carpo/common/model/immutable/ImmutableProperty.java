@@ -2,6 +2,9 @@ package net.sixpointsix.carpo.common.model.immutable;
 
 import com.google.common.collect.Iterables;
 import net.sixpointsix.carpo.common.model.Property;
+import net.sixpointsix.carpo.common.model.PropertyCollection;
+import net.sixpointsix.carpo.common.model.PropertyHoldingEntity;
+import net.sixpointsix.carpo.common.model.mutable.MutablePropertyCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -225,6 +228,21 @@ public final class ImmutableProperty implements Property {
                 null,
                 null,
                 value,
+                null,
+                null
+        );
+    }
+
+    public static ImmutableProperty build(String key, Property value) {
+        return new ImmutableProperty(
+                key,
+                null,
+                null,
+                null,
+                null,
+                new MutablePropertyCollection() {{
+                    add(value);
+                }},
                 null,
                 null
         );
