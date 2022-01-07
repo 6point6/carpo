@@ -53,7 +53,7 @@
         <!-- Test Versions   -->
         <junit.version>5.6.0</junit.version>
         <surefire-plugin.version>2.22.2</surefire-plugin.version>
-        <h2.version>1.4.200</h2.version>
+        <h2.version>2.0.206</h2.version>
 
         <!-- Test properties -->
         <excludedTests>IT</excludedTests>
