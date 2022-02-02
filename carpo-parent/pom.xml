@@ -47,7 +47,7 @@
         <source-plugin.version>3.2.1</source-plugin.version>
 
         <liquibase-version>3.8.7</liquibase-version>
-        <postgres.version>42.2.10</postgres.version>
+        <postgres.version>42.2.25</postgres.version>
         <mysql.version>8.0.19</mysql.version>
 
         <!-- Test Versions   -->
