@@ -46,7 +46,7 @@
         <deploy.version>2.8.2</deploy.version>
         <source-plugin.version>3.2.1</source-plugin.version>
 
-        <liquibase-version>3.8.7</liquibase-version>
+        <liquibase-version>4.8.0</liquibase-version>
         <postgres.version>42.2.10</postgres.version>
         <mysql.version>8.0.19</mysql.version>
 
