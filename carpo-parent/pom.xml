@@ -34,7 +34,7 @@
         <poi.version>4.1.2</poi.version>
         <mockito.version>1.10.19</mockito.version>
         <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
-        <jackson.version>2.10.5.1</jackson.version>
+        <jackson.version>2.12.6.1</jackson.version>
         <json-assert.version>1.5.0</json-assert.version>
 
 
